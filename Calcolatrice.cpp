@@ -5,7 +5,7 @@ class Calcolatrice {
 private:
     int a, b;
 public:
-void Numeri(int primo, int secondo) {
+void Numeri (int primo, int secondo) {
     a = primo;
     b = secondo;
 }
@@ -69,7 +69,7 @@ switch (operazione) {
         }else{
             cout<<"Errore: divisione per zero!"<<endl;
         }
-                break;
+            break;
 }
     cout<<"MCD: "<<calc.mcd()<<endl;
     cout<<"MCM: "<<calc.mcm()<<endl;
