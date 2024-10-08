@@ -40,9 +40,16 @@ void Cerchio::Setraggio(double r){
 };
 int main(){
 Cerchio c;
-    c.Setx(0);
-    c.Sety(0);
-    c.Setraggio(0);
+double num1, num2, num3;
+    cout<<"Inserisci la cordinata x del centro del cerchio: ";
+    cin>>num1;
+    c.Setx(num1);
+    cout<<"Inserisci la cordinata y del centro del cerchio: ";
+    cin>>num2;
+    c.Sety(num2);
+    cout<<"Inserisci il raggio del cerchio; ";
+    cin>>num3;
+    c.Setraggio(num3);
     cout<<"Cordinate del centro del cerchio: ("<<c.Getx()<<" , "<<c.Gety()<<")"<<endl;
     cout<<"Raggio del cerchio: "<<c.Getraggio()<<endl;
     cout<<"Area del cerchio: "<<c.Area()<<endl;
