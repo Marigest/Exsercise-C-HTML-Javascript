@@ -5,6 +5,11 @@ class Cerchio{
     private:
         double x, y, raggio;
     public:
+        Cerchio(){
+            x=0;
+            y=0;
+            raggio=10;
+        }
         double Area();
         double Circonferenza();
         double Getx();
@@ -38,9 +43,22 @@ double Cerchio::Getraggio(){
 void Cerchio::Setraggio(double r){
     raggio=r;
 };
+
+class Cilindro:public Cerchio{
+    private:
+        double altezza;
+    public:
+        Cilindro(){
+            altezza=0;
+        }
+        int Area(){
+            return (raggio*raggio)*3.14*altezza;
+        };
+};
+
 int main(){
 Cerchio c;
-double num1, num2, num3;
+/*double num1, num2, num3;
     cout<<"Inserisci la cordinata x del centro del cerchio: ";
     cin>>num1;
     c.Setx(num1);
@@ -53,5 +71,7 @@ double num1, num2, num3;
     cout<<"Cordinate del centro del cerchio: ("<<c.Getx()<<" , "<<c.Gety()<<")"<<endl;
     cout<<"Raggio del cerchio: "<<c.Getraggio()<<endl;
     cout<<"Area del cerchio: "<<c.Area()<<endl;
-    cout<<"Croconferenza del cerchio: "<<c.Circonferenza()<<endl;
+    cout<<"Croconferenza del cerchio: "<<c.Circonferenza()<<endl;*/
+    Cilindro cil;
+        cout<<cil.Area()<<endl;
     }
