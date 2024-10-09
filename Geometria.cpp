@@ -47,7 +47,7 @@ double num1, num2, num3;
     cout<<"Inserisci la cordinata y del centro del cerchio: ";
     cin>>num2;
     c.Sety(num2);
-    cout<<"Inserisci il raggio del cerchio; ";
+    cout<<"Inserisci il raggio del cerchio: ";
     cin>>num3;
     c.Setraggio(num3);
     cout<<"Cordinate del centro del cerchio: ("<<c.Getx()<<" , "<<c.Gety()<<")"<<endl;
