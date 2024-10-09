@@ -2,7 +2,7 @@
 using namespace std;
 
 class Cerchio{
-    private:
+    protected:
         double x, y, raggio;
     public:
         Cerchio(){
