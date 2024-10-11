@@ -29,8 +29,7 @@ class Borraccia:public Bicchiere{
     private:
         bool tappo;
     public:
-        Borraccia():Bicchiere()
-        {
+        Borraccia():Bicchiere(){
             tappo=false;
         }
         void Apri_Chiudi(){
