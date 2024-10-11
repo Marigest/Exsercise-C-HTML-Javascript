@@ -15,7 +15,7 @@ class Bicchiere{
         }
         void Bevi(){
             if (contenuto>0){
-                contenuto-10%capacita;
+                contenuto=contenuto-(capacita*0.1);
             }else{
                 cout<<"Il bicchiere è vuoto"<<endl;
             }     
@@ -29,19 +29,20 @@ class Borraccia:public Bicchiere{
     private:
         bool tappo;
     public:
-        Borraccia(){
+        Borraccia():Bicchiere()
+        {
             tappo=false;
         }
         void Apri_Chiudi(){
-            if (tappo==true){
-                tappo=false;
-            }else{
-                tappo=true;
-            }
+            tappo=!tappo;
         }
         void Sorseggia(){
             if (tappo==true){
-                Bevi();
+                if(contenuto>0){ 
+                    Bevi();
+                    }else{
+                        cout<<"Borraccia vuota"<<endl;
+                    }   
             }else{
                 cout<<"Devi aprire la borraccia"<<endl;
             }
@@ -62,6 +63,11 @@ int main(){
         bic.Vedi();
     Borraccia bor;
         bor.Apri_Chiudi();
-        bor.Sorseggia();
         bor.Ricolma();
+        bor.Vedi();
+            for(int i=0;i<10;i++){
+                bor.Sorseggia();bor.Vedi();
+            }
+        
+        
 }
