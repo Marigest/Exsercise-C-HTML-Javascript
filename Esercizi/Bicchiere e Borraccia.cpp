@@ -65,7 +65,7 @@ int main(){
         bor.Apri_Chiudi();
         bor.Ricolma();
         bor.Vedi();
-            for(int i=0;i<10;i++){
+            for(int i=0;i<11;i++){
                 bor.Sorseggia();bor.Vedi();
             }
         
