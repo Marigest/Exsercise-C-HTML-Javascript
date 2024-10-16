@@ -54,7 +54,7 @@ class Camion:public Veicolo{
         int capacita_carico;
     public:
         Camion(string mar, string mod, int a, int capacita):Veicolo(mar, mod, a){
-            capacita=capacita_carico;
+            capacita_carico=capacita;
         }
         void mostra_dettagli(){
             cout<<"La marca del camion è "<<marca<<" di modello "<<modello<<" di anno "<<anno<<" con una capacità di "<<capacita_carico<<"."<<endl;
