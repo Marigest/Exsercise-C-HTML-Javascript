@@ -7,23 +7,23 @@ class Libreria{
     public:
         int annoPubblicazione;
         Libreria(string tit, int anPub){
-            tit=titolo;
-            anPub=annoPubblicazione;
+            titolo=tit;
+            annoPubblicazione=anPub;
         }
         void mostraDettagli(){
             cout<<"Il libro s'intitola "<<tit<<" ed è stato pubblicato nel "<<anPub<<"."<<endl;
         }
         bool isAntico(){
-            int anno = 2024;
-                if(anno-anPub>50){
+            int anno=2024;
+                if(anno-anPub>=50){
                     cout<<"Il libro è vecchio";
                 }
         }
         int calcolaAnni(){
-
+            
         }
 };
 
 int main(){
-    Libreria mioLibro= Libreria("Il Signore degli Anelli", 1954);
+    Libreria mioLibro=Libreria("Il Signore degli Anelli", 1954);
 }
