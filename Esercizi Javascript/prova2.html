@@ -12,7 +12,8 @@
             y=parseInt(y);
             alert("Il numero "+x+" per il numero "+y+" risulta "+x*y);
             alert(x+y);
-            x=prompt("Inserisci un numero ");
+            x=parseInt(prompt("Inserisci un numero "));//aggiunto parseInt per evitare sempre che non siano string
+
             document.write("<h1>"+nome+"</h1>");
         </script>
     </head>
