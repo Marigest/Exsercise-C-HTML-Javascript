@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="it"dir="ltr">
+    <head>
+        <meta charset="utf-8">
+            <title>Fattura</title>
+    </head>
+        <body>
+            <h1>Fattura</h1>
+                <script>
+                    var d,p,n,tot=0;
+                    document.write("<table border=1>");
+                    var r=(prompt("Inserisci il numero di componenti"));
+                    document.write("<tr><td>Articolo</td>");
+                    document.write("<td>prezzo</td");
+                    document.write("<td>numeroi</td");
+                    document.write("<td>totale</td></tr>");
+                    for(var i=1;i<=r;i++){
+                        document.write("<tr><td>");
+                        d=prompt("Inserisci descrizione nuovo componente");
+                        p=prompt("Inserisci il prezzo unitario per "+d);
+                        n=prompt("Inserisci numero articoli per "+d);
+                        document.write(d+"</td><td");
+                        document.write(p+"</td><td");
+                        document.write(n+"</td><td");
+                        document.write((n * p)+"</td>");
+                        document.write("<>");
+                        tot+=n*p;
+                    }
+                    document.write("</table>");
+                    document.write("<h3>Totale imponibile="+tot+"</h3>");
+                    document.write("<h3>Importo IVA(22%)="+(tot*22/100)+"</h3>");
+                    document.write("<h3>Totale fattura="+(tot*22/100+tot)+"</h3>");
+                </script>
+        </body>
+</html>
