@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="it"dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Array</title>
+        <script>
+            var vettore=[];
+            vettore[0]="Ciao";
+            vettore[1]=true;
+            vettore[2]=12;
+            vettore[5]="<br>";
+            vettore[6]=35;
+
+            var vet2=[1,5,9,7,3]  
+            
+            alert(vettore.length); //Manda un pop-up per visualizzare la lunghezza del vettore
+
+            for(var i=0;i<vettore.length;i++){ //scriviamo vettore.leght perchè non sappiamo quanto è lungo il vettore. Quindi usiamo lenght perchè mi da l'ultimo indice del vettore, in questo caso sarà 6.
+                document.write(vettore[i]+"");
+            }
+            for(i in vettore){
+                document.write(vettore[i]+"");//se usiamo for(in), questo prenderà solo gli elementi che abbiamo salvato, così da non trovare gli "Undefined".
+            }
+            var tampone;
+            for(tampone of vettore){
+                document.write(tampone+"");//se usiamo for(of), questo 
+            }
+            vettore.splice(0,1,"Mondo","false")
+            for(var i=0;i<vettore.length;i++){ //scriviamo vettore.leght perchè non sappiamo quanto è lungo il vettore. Quindi usiamo lenght perchè mi da l'ultimo indice del vettore, in questo caso sarà 6.
+                document.write(vettore[i]+"");
+            }
+            
+        </script>
+    </head>
+        <body>
+        </body>
+</html>
