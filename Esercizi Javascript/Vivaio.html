@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalogo Piante</title>
+</head>
+<body>
+    <h1>Catalogo Piante</h1>
+    <table border="1">
+        <tr>
+            <th>Pianta</th>
+            <th>Prezzo</th>
+            <th>Quantità</th>
+        </tr>
+        <script>
+            var piante = ["rosa", "tulipano"];
+            var prezzo = [10, 20];
+            var quantita = [5, 10];
+            var i;
+            for(i in piante){
+                document.write("<tr><td>"+piante[i]+"</td><td>"+prezzo[i]+"</td><td>"+quantita[i]+"</td></tr>");
+            }
+            document.write("<tr><td colspan='3'><img src='Immagini/Red_rose.jpg'><img src='Immagini/tulipano.jpg'></td></tr>");
+        </script>
+    </table>
+</body>
+</html>
