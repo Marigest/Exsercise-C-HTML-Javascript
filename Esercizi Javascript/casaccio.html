@@ -7,16 +7,14 @@
            function somma(){
            var i;
            var s=0;
-           for(i in somma){
-            somma=somma+arguments[i];
+           for(i in arguments){
+            s = s + arguments[i];
            }
-           return (s);
+           alert(s);
            }
         </script>
     </head>
         <body>
-            <script>
-                <button type="button" onclick="somma(5,6)">Fai la somma</button>
-            </script>
+            <button type="button" onclick="somma(5,6)">Fai la somma</button>
         </body>
 </html>
