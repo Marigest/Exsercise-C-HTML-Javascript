@@ -12,42 +12,34 @@
                     s=s+arguments[i];
                 }
                 alert(s);
-            }
-        
+            }      
             function sommanumeriaselleditesto(){
                 var s1=0;
                 var s2=0;
                 s1=parseInt(document.getElementById("numero1").value);
                 s2=parseInt(document.getElementById("numero2").value);
-                alert(s1+s2);
                 document.getElementById("risultato").value = s1+s2;
-            }
-        
+            }        
             function sottrazione(){
                 var s1=0;
                 var s2=0;
                 s1=parseInt(document.getElementById("numero1").value);
                 s2=parseInt(document.getElementById("numero2").value);
-                alert(s1-s2);
                 document.getElementById("risultato").value = s1-s2;
-            }
-        
+            }        
             function moltiplicazione(){
                 var s1=0;
                 var s2=0;
                 s1=parseInt(document.getElementById("numero1").value);
                 s2=parseInt(document.getElementById("numero2").value);
-                alert(s1*s2);
                 document.getElementById("risultato").value = s1*s2;
             }
-        
             function divisione(){
                 var s1=0;
                 var s2=0;
                 s1=parseInt(document.getElementById("numero1").value);
                 s2=parseInt(document.getElementById("numero2").value);
                 if (s2 !== 0) {
-                    alert(s1/s2);
                     document.getElementById("risultato").value = s1/s2;
                 } else {
                     alert("Impossibile dividere per zero.");
