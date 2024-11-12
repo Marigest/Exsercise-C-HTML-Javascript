@@ -1,41 +1,69 @@
 <!DOCTYPE html>
 <html lang="it"dir="ltr">
-<head>
-    <meta charset="utf-8">
-    <title>Calcolatrice</title>
-<script>
-    function dumpo(){
-        //var vedi=7
-    }
-        function somma(){
-            var s=0
-            var i
-            for (i in arguments){
-                var vedi=8
-                s=s+arguments[i]
+    <head>
+        <meta charset="utf-8">
+    </head>
+        <script>
+            function somma(){
+                var s=0;
+                var i;
+                for (i in arguments){
+                    var vedi=8;
+                    s=s+arguments[i];
+                }
+                alert(s);
             }
-          alert(s)
-        }
-        function sommanumeriaselleditesto(){
-            var s1=0
-            var s2=0
-            var tot=0
-           s1=parseInt(document.getElementById("numero1").value)
-           s2=parseInt(document.getElementById("numero2").value)
-           alert(s1+s2)
-           document.getElementById("risultato").value = s1+s2
-        }
- 
-    </script>
-<body>
-<button type=button onclick="somma(1,2,3)">somma1,2,3</button>
-<p><a href="javascript:somma(3,4)">somma di 3,4</a></p>
-<p><a href="javascript:somma(5,9,4)">somma di 5,9,4</a></p>
- 
-Numero 1<input type="text" id="numero1" value=0>
-Numero 2<input type="text" id="numero2">
-<p></p>Risultato<input type="text" id="risultato"></p>
-<button type=button onclick="sommanumeriaselleditesto()">somma numero1 e numero2</button>
- 
-</body>
+        
+            function sommanumeriaselleditesto(){
+                var s1=0;
+                var s2=0;
+                s1=parseInt(document.getElementById("numero1").value);
+                s2=parseInt(document.getElementById("numero2").value);
+                alert(s1+s2);
+                document.getElementById("risultato").value = s1+s2;
+            }
+        
+            function sottrazione(){
+                var s1=0;
+                var s2=0;
+                s1=parseInt(document.getElementById("numero1").value);
+                s2=parseInt(document.getElementById("numero2").value);
+                alert(s1-s2);
+                document.getElementById("risultato").value = s1-s2;
+            }
+        
+            function moltiplicazione(){
+                var s1=0;
+                var s2=0;
+                s1=parseInt(document.getElementById("numero1").value);
+                s2=parseInt(document.getElementById("numero2").value);
+                alert(s1*s2);
+                document.getElementById("risultato").value = s1*s2;
+            }
+        
+            function divisione(){
+                var s1=0;
+                var s2=0;
+                s1=parseInt(document.getElementById("numero1").value);
+                s2=parseInt(document.getElementById("numero2").value);
+                if (s2 !== 0) {
+                    alert(s1/s2);
+                    document.getElementById("risultato").value = s1/s2;
+                } else {
+                    alert("Impossibile dividere per zero.");
+                    document.getElementById("risultato").value = "";
+                }
+            }
+        </script>
+    <body>
+        Numero 1 <input type="text" id="numero1">
+        Numero 2 <input type="text" id="numero2">
+        <p></p>Risultato <input type="text" id="risultato">
+        <p>
+            <button type="button" onclick="sommanumeriaselleditesto()">Somma</button>
+            <button type="button" onclick="sottrazione()">Sottrazione</button>
+            <button type="button" onclick="moltiplicazione()">Moltiplicazione</button>
+            <button type="button" onclick="divisione()">Divisione</button>
+        </p>
+    </body>
 </html>
