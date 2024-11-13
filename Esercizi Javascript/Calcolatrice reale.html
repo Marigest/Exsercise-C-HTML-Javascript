@@ -13,7 +13,7 @@
 
         function calcola() {
             var display = document.getElementById("display").value;
-            var risultato = Function('"use strict";return (' + display + ')')();
+            var risultato = new Function('return ' + display)();
             document.getElementById("display").value = risultato;
         }
     </script>
