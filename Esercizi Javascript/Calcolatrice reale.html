@@ -1,65 +1,48 @@
 <!DOCTYPE html>
-<html lang="it"dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>Calcolatriuce reale</title>
-    </head>
-    <body>
-        <script>
-           function somma(){
-                var s=0;
-                var i;
-                for (i in arguments){
-                    var vedi=8;
-                    s=s+arguments[i];
-                }
-                alert(s);
-            }      
-            function sommanumeriaselleditesto(){
-                var s1=0;
-                var s2=0;
-                s1=parseInt(document.getElementById("numero1").value);
-                s2=parseInt(document.getElementById("numero2").value);
-                document.getElementById("risultato").value = s1+s2;
-            }        
-            function sottrazione(){
-                var s1=0;
-                var s2=0;
-                s1=parseInt(document.getElementById("numero1").value);
-                s2=parseInt(document.getElementById("numero2").value);
-                document.getElementById("risultato").value = s1-s2;
-            }        
-            function moltiplicazione(){
-                var s1=0;
-                var s2=0;
-                s1=parseInt(document.getElementById("numero1").value);
-                s2=parseInt(document.getElementById("numero2").value);
-                document.getElementById("risultato").value = s1*s2;
-            }
-            function divisione(){
-                var s1=0;
-                var s2=0;
-                s1=parseInt(document.getElementById("numero1").value);
-                s2=parseInt(document.getElementById("numero2").value);
-                if (s2 !== 0) {
-                    document.getElementById("risultato").value = s1/s2;
-                } else {
-                    alert("Impossibile dividere per zero.");
-                    document.getElementById("risultato").value = "";
-                }
-            } 
-        </script>
-        <input type="text" id="">
-        <p>
-            <button type="button" onclick="numcasella(7)">7</button>
-            <button type="button" onclick="numcasella(8)">8</button>
-            <button type="button" onclick="numcasella(9)">9</button></p>
-        <p> <button type="button" onclick="numcasella(4)">4</button>
-            <button type="button" onclick="numcasella(5)">5</button>
-            <button type="button" onclick="numcasella(6)">6</button></p>
-        <p> <button type="button" onclick="numcasella(1)">1</button>
-            <button type="button" onclick="numcasella(2)">2</button>
-            <button type="button" onclick="numcasella(3)">3</button></p>
-        </p>
-    </body>
+<html>
+<head>
+    <title>Calcolatrice Reale</title>
+    <script>
+        function numcasella(num) {
+            document.getElementById("display").value += num;
+        }
+
+        function pulisci() {
+            document.getElementById("display").value = "";
+        }
+
+        function calcola() {
+            var display = document.getElementById("display").value;
+            var risultato = Function('"use strict";return (' + display + ')')();
+            document.getElementById("display").value = risultato;
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id="display">
+    <p>
+        <button type="button" onclick="numcasella(7)">7</button>
+        <button type="button" onclick="numcasella(8)">8</button>
+        <button type="button" onclick="numcasella(9)">9</button>
+        <button type="button" onclick="numcasella('/')">/</button>
+    </p>
+    <p>
+        <button type="button" onclick="numcasella(4)">4</button>
+        <button type="button" onclick="numcasella(5)">5</button>
+        <button type="button" onclick="numcasella(6)">6</button>
+        <button type="button" onclick="numcasella('*')">x</button>
+    </p>
+    <p>
+        <button type="button" onclick="numcasella(1)">1</button>
+        <button type="button" onclick="numcasella(2)">2</button>
+        <button type="button" onclick="numcasella(3)">3</button>
+        <button type="button" onclick="numcasella('-')">-</button>
+    </p>
+    <p>
+        <button type="button" onclick="numcasella(0)">0</button>
+        <button type="button" onclick="pulisci()">AC</button>
+        <button type="button" onclick="numcasella('+')">+</button>
+        <button type="button" onclick="calcola()">=</button>
+    </p>
+</body>
 </html>
