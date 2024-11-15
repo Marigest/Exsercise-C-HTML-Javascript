@@ -1,25 +1,104 @@
 <!DOCTYPE html>
-<html lang="it" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>Registratore di cassa</title>
-    </head>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <title>Regjistrues prej përafërsisht</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: space-around;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .prodotti {
+            width: 30%;
+        }
+        .scontrino {
+            width: 40%;
+            border: 1px solid black;
+            padding: 10px;
+            height: 400px;
+            overflow-y: auto;
+        }
+        .totale {
+            margin-top: 20px;
+        }
+        button {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+        img {
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+        .fine-spesa {
+            background-color: red;
+            color: white;
+            padding: 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .fine-spesa:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div class="prodotti">
+        <h2>Produktet</h2>
+        <button onclick="aggiungiProdotto('Burek', 100)">
+            <img src="Immagini/byrek.jpg" width="50"> Burek - 100 lekë
+        </button>
+        <button onclick="aggiungiProdotto('Trilece', 400)">
+            <img src="Immagini/trilece.jpg" width="50"> Trilece - 400 lekë
+        </button>
+        <button onclick="aggiungiProdotto('Sufllaqe', 1200)">
+            <img src="Immagini/sufllaqe e hapur.jpg" width="50"> Sufllaqe a hapur - 1200 lekë
+        </button>
+    </div>
+    <div class="scontrino">
+        <h2>Faturë</h2>
+        <div id="listaProdotti"></div>
+        <div class="totale">
+            <hr>
+            <p>Totali (pa TVSH): <span id="shuma">0</span> lekë</p>
+            <p>Totali TVSH (4%): <span id="shuma_iva">0</span> lekë</p>
+            <p>Totali (me TVSH): <span id="totale_con_iva">0</span> lekë</p>
+        </div>
+        <button class="fine-spesa" onclick="fineSpesa()">Fundi i blerjeve</button>
+    </div>
     <script>
-        function somma(){
-
+        let scontrino = [];
+        function aggiungiProdotto(nome, prezzo) {
+            const prodottoEsistente = scontrino.find(prod => prod.nome === nome);
+            if (prodottoEsistente) {
+                prodottoEsistente.quantita++;
+            } else {
+                scontrino.push({ nome, prezzo, quantita: 1 });
+            }
+            aggiornaScontrino();
         }
-        function iva(){
-
-        }
-        function cancella(){
-
-        }
-        function fine(){
-
+        function aggiornaScontrino() {
+            const listaProdottiDiv = document.getElementById("listaProdotti");
+            listaProdottiDiv.innerHTML = "";
+            let totale = 0;
+            for (let i = 0; i < scontrino.length; i++) {
+                const prodotto = scontrino[i];
+                listaProdottiDiv.innerHTML += `${prodotto.nome} - ${prodotto.quantita} x ${prodotto.prezzo} lekë<br>`;
+                totale += prodotto.prezzo * prodotto.quantita;
+            }
+            const iva = totale * 0.04;
+            const totaleConIva = totale + iva;
+            document.getElementById("shuma").textContent = totale;
+            document.getElementById("shuma_iva").textContent = iva.toFixed(2);
+            document.getElementById("totale_con_iva").textContent = totaleConIva.toFixed(2);
+        }                                    
+        function fineSpesa() {
+            alert("Faleminderit për blerjen tuaj!");
+            scontrino = [];
+            aggiornaScontrino();
         }
     </script>
-    <body>
-        <button type="button" onclick=""><img src='Immagini/gatto.jpg'></button>
-        <button type="button" onclick=""><img src='Immagini/gatto.jpg'></button>
-    </body>
+</body>
 </html>
