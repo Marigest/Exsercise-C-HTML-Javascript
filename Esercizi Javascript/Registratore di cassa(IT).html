@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="utf-8">
-    <title>Regjistrues prej përafërsisht</title>
+    <title>Registratore di cassa</title>
     <style>
         body {
             display: flex;
@@ -46,27 +46,27 @@
 </head>
 <body>
     <div class="prodotti">
-        <h2>Produktet</h2>
+        <h2>Prodotti</h2>
         <button onclick="aggiungiProdotto('Burek', 100)">
-            <img src="Immagini/byrek.jpg" width="50"> Burek - 100 lekë
+            <img src="Immagini/byrek.jpg" width="50"> Burek - 1€
         </button>
         <button onclick="aggiungiProdotto('Trilece', 400)">
-            <img src="Immagini/trilece.jpg" width="50"> Trilece - 400 lekë
+            <img src="Immagini/trilece.jpg" width="50"> Trilece - 4€
         </button>
         <button onclick="aggiungiProdotto('Sufllaqe', 1200)">
-            <img src="Immagini/sufllaqe e hapur.jpg" width="50"> Sufllaqe a hapur - 1200 lekë
+            <img src="Immagini/sufllaqe e hapur.jpg" width="50"> Sufllaqe a hapur - 12€
         </button>
     </div>
     <div class="scontrino">
-        <h2>Faturë</h2>
+        <h2>Scontrino</h2>
         <div id="listaProdotti"></div>
         <div class="totale">
             <hr>
-            <p>Totali (pa TVSH): <span id="shuma">0</span> lekë</p>
-            <p>Totali TVSH (4%): <span id="shuma_iva">0</span> lekë</p>
-            <p>Totali (me TVSH): <span id="totale_con_iva">0</span> lekë</p>
+            <p>Totale (senza IVA): <span id="shuma">0</span> €</p>
+            <p>Totale IVA (4%): <span id="shuma_iva">0</span> €</p>
+            <p>Totale (con IVA): <span id="totale_con_iva">0</span> €</p>
         </div>
-        <button class="fine-spesa" onclick="fineSpesa()">Fundi i blerjeve</button>
+        <button class="fine-spesa" onclick="fineSpesa()">Fine Spesa</button>
     </div>
     <script>
         let scontrino = [];
@@ -85,7 +85,7 @@
             let totale = 0;
             for (let i = 0; i < scontrino.length; i++) {
                 const prodotto = scontrino[i];
-                listaProdottiDiv.innerHTML += `${prodotto.nome} - ${prodotto.quantita} x ${prodotto.prezzo} lekë<br>`;
+                listaProdottiDiv.innerHTML += `${prodotto.nome} - ${prodotto.quantita} x ${prodotto.prezzo} €<br>`;
                 totale += prodotto.prezzo * prodotto.quantita;
             }
             const iva = totale * 0.04;
@@ -95,7 +95,7 @@
             document.getElementById("totale_con_iva").textContent = totaleConIva.toFixed(2);
         }                                    
         function fineSpesa() {
-            alert("Faleminderit për blerjen tuaj!");
+            alert("Grazie per il tuo acquisto!");
             scontrino = [];
             aggiornaScontrino();
         }
