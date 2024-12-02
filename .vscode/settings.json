@@ -2,5 +2,6 @@
     "files.associations": {
         "iostream": "cpp"
     },
-    "C_Cpp.errorSquiggles": "enabled"
+    "C_Cpp.errorSquiggles": "enabled",
+    "livePreview.defaultPreviewPath": "/Esercizi Javascript/Registratore di cassa(IT).html"
 }
