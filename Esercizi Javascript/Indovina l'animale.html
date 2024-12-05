@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<title>Indovina l'Animale</title>
+<script>
+  var indice=0
+  var punti=0
+     animali = ["leone","elefante","gatto", "cane"]
+     immagini=["https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/002_The_lion_king_Snyggve_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg/345px-002_The_lion_king_Snyggve_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg",
+               "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Afrikanischer_Elefant%2C_Zoo_Miami_1.jpg/330px-Afrikanischer_Elefant%2C_Zoo_Miami_1.jpg",
+               "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Ginger_european_cat.jpg/440px-Ginger_european_cat.jpg",
+               "https://doctorvet.it/wp-content/uploads/2024/03/Stitichezza-del-cane-sintomi-cause-cura-e-prevenzione-980x563.jpg"];
+function mostraAnimale(){
+    document.getElementById("immagine").src=immagini[indice]
+
+}
+function verificaRisposta(){
+    if (indice<animali.length-1){
+        if (document.getElementById("risposta").value==animali[indice]){
+            document.getElementById("messaggio").innerHTML="Risposta esatta!"
+            punti++
+        }else
+        {
+            document.getElementById("messaggio").innerHTML="Risposta sbagliata!"
+        }
+        document.getElementById("punteggio").innerHTML="Punti="+punti+"/4"
+        indice++
+        mostraAnimale()
+    } 
+    else{
+           document.getElementById("messaggio").innerHTML="Fine del gioco!"
+           document.getElementById("immagine").src="https://upload.wikimedia.org/wikipedia/commons/7/70/Game_Over_logo.png?20220218180302"
+    }
+  document.getElementById("risposta").value=""
+}
+</script>
+<body onload="mostraAnimale()">
+ 
+    <h1>Indovina l'Animale</h1>
+<p id="messaggio"></p>
+<p id="punteggio"></p>
+<img id="immagine" src=""  width="100">
+<br>
+    Scrivi il nome dell'animale: 
+<input type="text" id="risposta" >
+<button onclick="verificaRisposta()">Invia</button>
+ 
+</body>
+</html>

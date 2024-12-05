@@ -1,25 +1,66 @@
 <!DOCTYPE html>
-<html lang="it"dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <tite>Calcolatore di Calorie</tite>
-    </head>
-    <body>
-        <script>
-            function somma(){
+<html lang="it">
+<head>
+<title>Conta calorie</title>
+<script>
+ 
+    sport = ["corsa","bicicletta","nuoto","camminata"]
+    immagini=["https://paolosaccardi.it/images/imsport/atletica.jpg",
+            "https://static.tecnichenuove.it/bicitech/2020/10/200618_cycling_commute.jpg",
+            "https://www.auxologico.it/sites/default/files/styles/testata_xl2/public/2023-06/nuoto-benefici.webp?h=b4713d15&itok=ZxBS9z-I",
+            "https://hips.hearstapps.com/hmg-prod/images/young-woman-running-training-in-the-city-royalty-free-image-1628789211.jpg"]
+    calorie = [10, 8, 12, 5]
+ 
+function calcolacalorie(numsport){
+	tot=calorie[numsport]*parseInt(document.getElementById("Durata").value)
+	tot=tot.toFixed(2)
+ 
+	Registro=document.getElementById("Registro")
+	Registro.value=Registro.value+sport[numsport]+"\t\t calorie "+tot+"\n\n"
+	if (document.getElementById("Totale").value=="")
+	{
+		totalecalorie=0
+	}
+	else
+	{
+		totalecalorie=parseFloat(document.getElementById("Totale").value)
+	}
+ 
+	totalecalorie=parseFloat(totalecalorie)+parseFloat(tot)
+	document.getElementById("Totale").value=totalecalorie
+}
+</script>
+</head>
+<body>
+<h1>Contatore di calorie</h1>
+<table border=1>
+<tr>
+<td valign="top">
+<script>
+	   for(i in sport){
+			//alert(i)
+	        document.write(" <img src='"+immagini[i]+"'  width='80' onclick='calcolacalorie("+i+")'>")
+	        document.write("<br>"+sport[i]+" - "+calorie[i]+" cal/min<br><br>")
+ 
+	    }
+</script>
+</td>
+<td valign="top">
+<h2>Durata:</h2>
+<input type="number" id="Durata"  value="3">
+</td>
+<td valign="top">      
+<h2>Registro attività</h2>
+<textarea id="Registro"  rows=10 readonly></textarea>
+</td>
+<td valign="top">
+<h2>Totale calorie</h2>
+<textarea id="Totale" readonly></textarea>
+</td>
+</tr>
+</table>
 
-            }
-        </script>
-        <div class="Immagini">
-            <script>
-                var sport=["Calcio", "Tennis"];
-                var calorie=[10,8];
-                var Immagini=["Immagini/Calcio.jpg", "Immagini/Tennis.jpg"];
-                for(i in kcal){
-                    document.write("<img src='"+Immagini[i]+"' onclick=''>");
-                }
-            </script>
-        </div>
-        </body>
-    </body>
+
+ 
+</body>
 </html>
