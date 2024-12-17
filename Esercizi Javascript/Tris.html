@@ -2,5 +2,37 @@
 <html lang="it"dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title></title>
+        <title>Tris</title>
+        <body>
+            <script>
+
+                function inserisci_simboli(){
+                    var Utente1="X"
+                    var Utente2="O"
+                    while(true){
+                        var simbolo=prompt("Inserisci il simbolo che vuoi usare per giocare")
+                        if(simbolo==Utente1){
+                            var simbolo2=Utente2
+                            break;
+                        }else if(simbolo==Utente2){
+                            var simbolo2=Utente1
+                            break;
+                        }else{
+                            alert("Inserisci un simbolo valido")
+                        }
+                    }
+                }
+
+                document.write("<table border='2'>")
+                    var cont=""
+                        for(var i=""; i<3;i++){
+                            document.write("<tr>")
+                        for(var j=""; j<3;j++){
+                            document.write("<td>"+ "bottone" +"</td>")
+                        }
+                    }
+
+                document.write("</table>")    
+            </script>
+        </body>
     </html>
