@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="utf-8">
+    <script>
+        function Somma(){
+            var x,y
+            x=document.getElementById("num1").value
+            y=document.getElementById("num2").value
+            document.getElementById("risultato").value = parseInt(x) + parseInt(y)
+        }
+        function Massimo(){
+            var x, y, c
+            x=document.getElementById("num1").value
+            y=document.getElementById("num2").value
+            if(x>y){
+                c=x
+            }else{
+                c=y
+            }
+            document.getElementById("risultato").value=c
+        }
+    </script>
+    <body>
+        <h1>Somma Numeri</h1>
+        Numero 1<input type="text" id="num1"><br>
+        Numero 2<input type="text" id="num2"><br>
+        <button onclick="Somma()">Somma</button>
+        <button onclick="Massimo()">Max</button>
+        Risultato<input type="text" id="risultato">
+    </body>
+</html>

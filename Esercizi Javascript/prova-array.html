@@ -19,11 +19,11 @@
                 document.write(vettore[i]+"");
             }
             for(i in vettore){
-                document.write(vettore[i]+"");//se usiamo for(in), questo prenderà solo gli elementi che abbiamo salvato, così da non trovare gli "Undefined".
+                document.write(vettore[i]+"");//se usiamo for(in), questo prenderà solo gli elementi che abbiamo salvato, così da non trovare gli "Undefined".(restituisce tutti gl'indici)
             }
             var tampone;
             for(tampone of vettore){
-                document.write(tampone+"");//se usiamo for(of), questo 
+                document.write(tampone+"");//se usiamo for(of), restituisce i nomi 
             }
             vettore.splice(0,1,"Mondo","false")
             for(var i=0;i<vettore.length;i++){ //scriviamo vettore.leght perchè non sappiamo quanto è lungo il vettore. Quindi usiamo lenght perchè mi da l'ultimo indice del vettore, in questo caso sarà 6.

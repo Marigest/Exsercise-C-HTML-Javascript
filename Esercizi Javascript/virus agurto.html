@@ -1,0 +1,70 @@
+<html>
+    <title>Tombola</title>
+    <body>
+        <style>
+            table,tr,td{
+                margin-left: auto;
+                margin-right: auto;
+                border: 1px solid;
+                text-align: center;
+                padding: 10px;
+            }
+        </style>
+        <h1 style="text-align: center;">Tabellone della tombola</h1>
+    <script>
+        var estratti=[]
+        function estratto(){
+             var x
+           
+            do{
+                x=Math.floor(Math.random()*91)
+            }while(estratti.includes(x))
+            estratti[estratti.length]=x
+            document.getElementById("estrai").innerHTML=x
+ 
+        var cella=document.getElementById(x)
+        if(cella){
+            cella.style.backgroundColor="green"
+         }
+        }
+    </script>
+    <table>
+        <script>
+            var cont=1
+            var c=1
+           
+            for(var i=0;i<10;i++){
+                document.write("<tr>")
+                    c++
+                    for(var j=0;j<9;j++){
+                        document.write("<td id='"+cont+"'>"+cont+"</td>")
+                        cont++;
+                    }
+                    document.write("</tr>")
+            }
+        </script>
+    </table>
+    <h1 id="estrai" style="text-align: center;" >Numero</h1>
+    <div style="text-align: center;"><button type="button" onclick="estratto()" float="center">Estrai</button></div>
+    <table>
+    <script>
+        var rand
+        var nonrip=[]
+            var d=1
+            for(var i=0;i<3;i++){
+                document.write("<tr>")
+                    d++
+                    for(var j=0;j<5;j++){
+                        do{
+                        rand=Math.floor(Math.random()*91)
+                        document.write("<td id='"+rand+"'>"+rand+"</td>")
+                        nonrip[nonrip.length]=rand
+                        }while(nonrip.includes(rand))
+                       
+                    }
+                    document.write("</tr>")
+            }
+    </script>
+    </table>
+    </body>
+</html>

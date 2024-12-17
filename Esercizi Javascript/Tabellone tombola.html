@@ -11,14 +11,17 @@
     </head>
     <body>
         <h1>Tombola</h1>
+        <table border="1">
         <script>
-            var i
-            document.write("<table border=1>")
-            for(i=1; i<100;i++){
-                document.write("<tr><td>"+i+"</td>")
+            var cont=1;
+            for(var i=1; i<11;i++){
+                document.write("<tr>")
+                for(var j=1; j<10;j++){
+                    document.write("<td>"+cont+"</td>");
+                    cont++;
+                }
             }
-            document.write("</table>")
         </script>
-            
+        </table>   
     </body>
 </html> 
