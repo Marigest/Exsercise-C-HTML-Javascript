@@ -1,38 +1,50 @@
 <!DOCTYPE html>
-<html lang="it"dir="ltr">
+<html lang="it" dir="ltr">
     <head>
         <meta charset="utf-8">
         <title>Tris</title>
+        <style>
+
+        </style>
+        </head>
         <body>
-            <script>
-
-                function inserisci_simboli(){
-                    var Utente1="X"
-                    var Utente2="O"
-                    while(true){
-                        var simbolo=prompt("Inserisci il simbolo che vuoi usare per giocare")
-                        if(simbolo==Utente1){
-                            var simbolo2=Utente2
-                            break;
-                        }else if(simbolo==Utente2){
-                            var simbolo2=Utente1
-                            break;
-                        }else{
-                            alert("Inserisci un simbolo valido")
+                <tr>
+                    <td onclick="mossa(2,0)"></td>
+                <tr>
+                    <td onclick="mossa(0,0)"></td>
+                    <td onclick="mossa(0,1)"></td>
+                    <td onclick="mossa(0,2)"></td>
+                </tr>
+                <tr>
+                    <td onclick="mossa(1,0)"></td>
+                    <td onclick="mossa(1,1)"></td>
+                    <td onclick="mossa(1,2)"></td>
+                </tr>
+                <tr>
+                    <td onclick="mossa(2,1)"></td>
+                    <td onclick="mossa(2,2)"></td>
+                </tr>
+                document.write("<table>");
+                document.write("<tr>");
+                document.write('<td><button onclick="mossa(0,0)"></button></td>');
+                document.write('<td><button onclick="mossa(0,1)"></button></td>');
+                document.write('<td><button onclick="mossa(0,2)"></button></td>');
+                document.write("</tr>");
+                document.write("</table>");
+                    <tr>
+                document.write("</table")
+                var Posti=[" "," "," "," "," "," "," "," "," "]
+                var Utente2="O"
+                var Posti=[" "," "," "," "," "," "," "," "," ",]
+                function mossa(x, y){
+                    for(var i = 0; i < dim; i++){
+                function mossa(){
+                    for(var i; i<dim; i++){
+                        for(var j; j<i; j++){
+                            document.write()
                         }
                     }
-                }
-
-                document.write("<table border='2'>")
-                    var cont=""
-                        for(var i=""; i<3;i++){
-                            document.write("<tr>")
-                        for(var j=""; j<3;j++){
-                            document.write("<td>"+ "bottone" +"</td>")
-                        }
-                    }
-
-                document.write("</table>")    
+                } 
             </script>
         </body>
     </html>
