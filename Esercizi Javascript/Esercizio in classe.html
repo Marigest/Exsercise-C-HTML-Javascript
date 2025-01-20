@@ -1,0 +1,36 @@
+<!--<html>
+    <head>
+        <script>
+            function Cambio(){
+                document.getElementById("prg1").innerHTML="Hai cambiato paragrafo";
+            }
+        </script>
+    </head>
+    <body>
+        <p id="prg1" onclick="Cambio()">Paragrafo a caso di prova</p>
+        <p id="prg2" onclick="Cambio()">Paragrafo a caso di prova</p>
+    </body>
+</html> -->
+<html>
+    <head>
+        <script>
+            function Cambio(og){
+                og.innerHTML="Hai cambiato paragrafo";
+            }
+            function Cambio_Contenuto(og){
+                og.value="Hai cambiato contenuto";
+            }
+            function Vedi_Nome(og){
+                document.getElementById("Vedi").value=og.value;
+            }
+        </script>
+    </head>
+    <body>
+        <p id="prg1" onclick="Cambio(this)">Paragrafo a caso di prova</p>
+        <p id="prg2" onclick="Cambio(this)">Paragrafo a caso di prova</p>
+        Vedi informazioni:
+        <input type="text" id="Vedi" onchange="Cambio_Contenuto(this)">
+        <br><br>Inserisci i tuoi dati: Nome
+        <input type="text" id="Nome" onchange="Vedi_Nome(this)">
+    </body>
+</html>
