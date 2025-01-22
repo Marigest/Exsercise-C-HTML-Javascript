@@ -1,32 +1,48 @@
 <html>
 <head></head>
 <script>
-function cambia (og){
-og.innerHTML="hai cambiato il testo"
-og.style.color="red"
+function cambia(og) {
+    og.innerHTML = "Hai cambiato il testo!";
+    og.style.color = "red";
 }
-function Select(){
-    var x=document.getElementeById("categoria").value
-    document.getElementById("Rur").innerHTML = "Categoria: "+ x
 
+function titolo(og) {
+    var titoloInserito = og.value;
+    document.getElementById("Rur").innerHTML = "Titolo canzone: " + titoloInserito;
+}
+
+function rut(og) {
+    var genere = og.nextSibling.textContent.trim();
+    document.getElementById("Rur").innerHTML = "Genere: " + genere;
+}
+
+function Select() {
+    var categoria = document.getElementById("categoria").value;
+    document.getElementById("Rur").innerHTML = "Categoria: " + categoria;
 }
 </script>
 <body>
 <h1>Seleziona la tua canzone</h1>
-<p id="broski" onclick="cambia(this)"> Clicca qui per modificare questo paragrafo! </p>
-<h2>Inserisci il titolo della canzone (non ho capito questa parte)</h2>
-<input  type="text" placeholder="Inserisci il titolo" onchange="titolo(this)">
-<h2>Seleziona genere musicale: </h2>
-<input type="radio" onchange="rut(this)"> Pop<br>
-<input type="radio" onchange="rut(this)"> Rock<br>
-<input type="radio" onchange="rut(this)"> Jazz
+
+<p id="broski" onclick="cambia(this)">Clicca qui per modificare questo paragrafo!</p>
+
+<h2>Inserisci il titolo della canzone</h2>
+<input type="text" placeholder="Inserisci il titolo" onchange="titolo(this)">
+
+<h2>Seleziona genere musicale:</h2>
+<input type="radio" name="genere" onchange="rut(this)"> Pop<br>
+<input type="radio" name="genere" onchange="rut(this)"> Rock<br>
+<input type="radio" name="genere" onchange="rut(this)"> Jazz<br>
+
 <h2>Indica se è un successo internazionale</h2>
-<input type="checkbox"> Si, è un successo internazionale
+<input type="checkbox" onchange="successo(this)"> Sì, è un successo internazionale
+
 <h2>Seleziona la categoria</h2>
 <select id="categoria" onchange="Select()">
-<option value="Classico">Classico</option>
-<option value="Indie">Vario</option>
+    <option value="Classico">Classico</option>
+    <option value="Vario">Vario</option>
 </select>
+
 <h2>Informazioni selezionate</h2>
 <p id="Rur"></p>
 </body>
