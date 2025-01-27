@@ -1,35 +1,79 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <script>
-            function Applica(og){
-             
-            }
-            function Rosso(og){
-                
-            }
-            function Blu(og){
-                
-            }
-            function Bianco(og){
-                
-            }
-        </script>    
-    </head>
-    <body>
-        <div class="Main" style="display: inline-block;">
-        Titolo <input type="Text"> <button type="button" onclick="Applica()">Applica</button> <br>
-        Colore <br>
-        <button type="button" onclick="Rosso()" style="background-color: red;color: white">Rosso</button>
-        <button type="button" onclick="Blu()" style="background-color: blue;color: white">Blu</button>
-        <button type="button" onclick="Bianco()" style="background-color: white;">Bianco</button> <br> <br>
-            <textarea rows="7" cols="35"></textarea>
-            <br> 
-            <button type="button" onclick="Applica()">Applica</button>
-        </div>
-        <div class="Titolo" style="display: inline-block;">
-            <h1>Titolo</h1>
-            <textarea rows="7" cols="35"></textarea>
-            <p>Modifiche apportate:</p>
-        </div>
-    </body>
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="AlterVista - Editor HTML"/>
+<title></title>
+<style>
+    #div1{ display: flex;}
+    #div2{ flex: 1;}
+    #div3{ flex: 2;}
+    #B1{width: 50px;height: 20px; background-color: red;color:white;}
+    #B2{width: 50px;height: 20px; background-color: rgb(0, 123, 255);color:white;}
+    #B3{width: 50px;height: 20px; background-color: white;color:black;}
+</style>
+ 
+<script>
+    var cont=0;
+    var str;
+    function Titol(elem) {
+    var T = document.getElementById(elem).value;
+    if(elem=="Tit")
+    {document.getElementById("Titolo").innerHTML = T;}
+    else{document.getElementById("Testo").innerHTML = T;}
+    Contatore();
+}
+function Rosso()
+{
+    document.getElementById("Testo").style.backgroundColor="Red";
+    document.getElementById("Testo").style.color="white";
+}
+function Blu()
+{
+    document.getElementById("Testo").style.backgroundColor="rgb(0, 123, 255)";
+    document.getElementById("Testo").style.color="white";
+}
+function Nulla()
+{
+    document.getElementById("Testo").style.backgroundColor="White";
+    document.getElementById("Testo").style.color="black";
+}
+ 
+function Contatore()
+{
+    cont++;
+    var frase="Numero modifiche "+cont;
+    document.getElementById("con").innerHTML=frase;
+}
+ 
+</script>
+</head>
+<body>
+<div id="div1">
+<!--  Div sinistra-->
+<div id="div2">
+<form >
+    Titolo
+<input type="text" name="Titolo" id="Tit" >
+<input type="button" onclick="Titol('Tit')" value="Applica"><br>
+ 
+    <label for="Colore"><b>Colore</b></label><br>
+<button id="B1" onmouseover="Rosso()">Rosso</button>
+<button id="B2"onmouseover="Blu()">Blu</button>
+<button id="B3"onmouseover="Nulla()">Bianco</button>
+<br>
+<br>
+<textarea  id="orig" cols="50" rows="10"  > </textarea>
+<input type="button" onclick="Titol('orig')" value="Applica"><br>
+</form>
+</div>
+<!--  Div destra-->
+<div id="div3">
+<h1 id="Titolo" >Lorel ipsum</h1>
+<textarea  id="Testo"  rows="10" cols="50" onchange="Contatore()">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.  </textarea>
+<br>
+<h3 id="con">Numero modifiche 0</h3>
+</div>  
+</div>
+</body>
 </html>
