@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <style>
+			div{display: inline-block;}
+        </style>
+        <script>
+
+        </script>
+    </head>
+    <title>Teatro Manzoni</title>
+    <body>
+        Scegli lo spettacolo <br>
+        <input type="radio" name="film" onchange="cambia_film()"> After Miss Julie <br>
+        <input type="radio" name="film" onchange="cambia_film()"> Ale e Franz <br>
+        <input type="radio" name="film" onchange="cambia_film()"> Jena Ridens <br>
+		<img src="Immagini/After Miss Julie" onclick="Cambia_Immagine()"> <br>
+        Prezzo intero <input type="text" placeholder="Qui apparira' il Prezzo intero"> <br>
+		<button type="button" onclick="Calcola_Prezzo_effettivo"> Calcola Prezzo effettivo </button> <br>
+		Prezzo effettivo <input type="text" placeholder="Qui apparira' il Prezzo effettivo"> <br>
+		Sconti <br>
+		<input type="checkbox" name="Tessera" value="3" onchange="Sconto()"> Tesserato Teatro Manzoni <br>
+		<input type="checkbox" name="Eta" value="3" onchange="Sconto()"> Età superiore a 60 <br>
+		<input type="checkbox" name="Studente" value="3" onchange="Sconto()"> Studente <br>
+		Scegli il posto <br>
+		<input type="radio" name="Posto" onchange="Posto()"> Platea <br>
+        <input type="radio" name="Posto" onchange="Posto()"> Galleria <br>
+		<button type="button" onclick="Pagamento()"> Pagamento </button> <br>
+    </body>
+</html>
