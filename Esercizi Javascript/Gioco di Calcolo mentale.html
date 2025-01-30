@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <style>
+            h1{
+                text-align: center;
+                color: blue;
+            }
+            #punteggio{
+                text-align: center;
+                color: purple;
+            }
+            #p2{
+                text-align: center;
+            }
+            #p4{
+                text-align: center;
+                color: purple;
+            }
+            #p5{
+                text-align: center;
+            }
+            
+        </style>
+        <script>
+            var num1, num2, risultato, punteggio = 0;
+            function GenPrOpp(){
+                num1 = Math.floor(Math.random() * 10);
+                num2 = Math.floor(Math.random() * 10);
+                risultato = num1 + num2;
+                document.getElementById("nuovoopp").innerHTML = num1 + " + " + num2 + " = ";
+            }
+            function Verifica(){
+                var risposta = document.getElementById("risposta1").value;
+                if(risposta == risultato){
+                    document.getElementById("risposta1").value = "Corretto";
+                    punteggio += 10;
+                }else{
+                    document.getElementById("risposta1").value = "Sbagliato";
+                    punteggio -= 5;
+                }
+                document.getElementById("punteggio").innerHTML = punteggio;
+            }
+            function NuovaOperazione(){
+                GenPrOpp();
+            }
+        </script>
+        <title>Gioco di Calcolo Mentale</title>
+    </head>
+    <body>
+        <h1>GIOCO DI CALCOLO MENTALE</h1>
+        <p id="p2">Rispondi il più velocemente possibile</p>
+        <p id="nuovoopp"> </p> <input type="text" id="risposta1"> <br>
+        <p align="center"><button type="button" onclick="Verifica()">Verifica</button>
+            <button type="button" onclick="NuovaOperazione()">Nuova Operazione</button></p>
+        
+        <p id="punteggio">Punteggio: 0</p>
+        <p id="p5">Risposta giusta +10, risposta sbagliata -5</p>
+    </body>
+</html>
