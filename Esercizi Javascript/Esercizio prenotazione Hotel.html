@@ -1,12 +1,10 @@
 <html>
     <head>
-        <style>
-
-        </style>
         <title>Prenotazione Hotel</title>
         <script>
             function Calcola_prezzo(){
                 var prezzo = 0;
+                var aggiunta = 0;
                 var camera = document.getElementsByName("camera");
                 var numero_notti = document.getElementById("numero_notti").value;
                 for(var i = 0; i < camera.length; i++){
@@ -17,12 +15,12 @@
                 var Colazione = document.getElementById("Colazione");
                 var Parcheggio = document.getElementById("Parcheggio");
                 if(Colazione.checked){
-                    prezzo += 10;
+                    aggiunta += 10;
                 }
                 if(Parcheggio.checked){
-                    prezzo += 5;
+                    aggiunta += 5;
                 }
-                document.getElementById("prez_tot").innerHTML = "Prezzo Totale: €" + prezzo * numero_notti;
+                document.getElementById("prez_tot").innerHTML = "Prezzo Totale: €" + (prezzo * numero_notti + aggiunta);
             }
             function Messaggio(){
                 var nome_hotel = document.getElementById("nome_hotel").value;
@@ -42,7 +40,7 @@
                 if(Parcheggio.checked){
                     prezzo += 5;
                 }
-                alert("Prenotazione effettuata presso " + nome_hotel + " per " + numero_notti + " notti in una
+                alert("Prenotazione effettuata presso " + nome_hotel + " per " + numero_notti + " notti. Grazie per la tua prenotazione!");
             }
             function Reset(){
                 document.getElementById("nome_hotel").value = "";
