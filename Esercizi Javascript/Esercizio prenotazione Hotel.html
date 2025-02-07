@@ -20,7 +20,7 @@
                 if(Parcheggio.checked){
                     aggiunta += 5;
                 }
-                document.getElementById("prez_tot").innerHTML = "Prezzo Totale: €" + (prezzo * numero_notti + aggiunta);
+                document.getElementById("prez_tot").innerHTML = "Prezzo Totale: €" + (prezzo * numero_notti + aggiunta * numero_notti);
             }
             function Messaggio(){
                 var nome_hotel = document.getElementById("nome_hotel").value;
@@ -63,7 +63,7 @@
         <label> <input type="radio" id="camera" name="camera" value="50" onchange="Calcola_prezzo(this)">Singola (€50/notte)  <input type="checkbox" id="Colazione" value="10" onchange="Calcola_prezzo(this)"> Colazione inclusa (+10/notte) </label> <br>
         <label> <input type="radio" id="camera" name="camera" value="80" onchange="Calcola_prezzo(this)">Doppia (€80/notte) <input type="checkbox" id="Parcheggio" value="5" onchange="Calcola_prezzo(this)"> Parcheggio (+5/notte) </label> <br>
         <input type="radio" id="camera" name="camera" value="120" onchange="Calcola_prezzo(this)">Suite (€120/notte) <br>
-        <img src="https://img.edilportale.com/product-thumbs/b_berlino-mobilificio-sangiorgi-501461-rel75dc4898.jpg" width="35%"> <br>
+        <img src="https://img.edilportale.com/product-thumbs/b_berlino-mobilificio-sangiorgi-501461-rel75dc4898.jpg" width="150" height="100"> <br>
         <p id="prez_tot"> </p> <br>
         <button type="button" onclick="Messaggio()">Prenota</button><button type="button" onclick="Reset()">Reset</button>
     </body>

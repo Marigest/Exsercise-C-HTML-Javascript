@@ -1,0 +1,70 @@
+<html>
+<h1>Calcolo costo del corso e prenotazione</h1><br>
+Nome:<input type="text" id="Nome">Numero lezioni:<input type="text" value="0" id="numlezioni" onchange="verifica(this)">
+<br><br>
+<table>
+    <tr>
+        <td>
+            <strong>Scegli uno sport:</strong><br>
+            <input type="radio" name="sport" onclick="cambiaimm(0, this)" value="20" checked>Calcio(20€/lezione)<br>
+            <input type="radio" name="sport" onclick="cambiaimm(1, this)" value="25">Tennis(25€/lezione)<br>
+            <input type="radio" name="sport" onclick="cambiaimm(2, this)" value="30 ">Nuoto(30€/lezione)<br>
+        </td>
+        <td>
+        <p id=""> <img src=">Calcio.jpg" width="150" height="120" id="immagine" onmouseover="messaggio()"></p>
+        </td>
+    </tr>
+</table>
+<h3><strong>Extra:</strong></h3><input type="checkbox" id="check">Personal Trainer (+10€/lezione)
+<br><br><br>
+<button type="button" onclick="grattaevinci()">Gratta e vinci</button><input type="text" id="vinci">
+<br><br>
+<button type="button" onclick="prenota()">Calcola il prezzo e prenota</button>
+<br>
+<h2 id="risultato">Totale: €0</h2>
+<script>
+    var immagini=["Calcio.jpg","Tennis.png","gatto.jpg"]
+    var lezione=20
+    var y=0
+    var sportselezionato ="Calcio.jpg"
+    function verifica(og){  
+        if(og.value<0){
+            alert("inserisci un numero di lezioni superiore a 0")
+            og.value=0
+        }
+    }
+    function cambiaimm(x, og){
+        document.getElementById("immagine").src=immagini[x]
+        sportselezionato=immagini[x];
+ 
+        lezione=og.value
+    }
+    function messaggio(x, og){
+        alert("Stai guardando l'immagine "+sportselezionato)
+     
+    }
+    function grattaevinci(){
+         y=Math.floor(Math.random()*10+1)
+        document.getElementById("vinci").value=y
+ 
+    }
+    function prenota(){
+        var costo=0
+        var bol=false
+        if(document.getElementById("Nome").value==''){
+            alert("impossibile fare prenotazioni senza nome")
+        }else{
+        alert("Prenotazione effetuata!")
+        costo=parseInt(lezione)*parseInt(document.getElementById("numlezioni").value)
+        if(document.getElementById("check").checked){
+        costo=parseInt(costo)+10*parseInt(document.getElementById("numlezioni").value)
+        }
+    }
+    if(y>6){
+        alert("complimenti hai vinto uno sconto del 50%")
+        costo=costo/2
+    }
+    document.getElementById("risultato").innerHTML="Totale: €"+costo
+    }
+</script>
+</html>
