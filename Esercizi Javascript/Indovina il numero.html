@@ -1,40 +1,45 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Document</title>
-</head>
-<script>
-    var cont = 0;
-    var nume = 0;
-    function Num_casuale(){
-        nume = Math.floor(Math.random() * 20 + 1);        
-    }
-    function Rivela_numero(){
-        var nume = document.getElementById("numero").innerHTML
-        alert(nume)
-    }
-    function Verifica(){
-        if (cont>5){
-            alert("Hai finito i tentativi. Ora ti mostro la soluzione")
-            Rivela_numero()
-        } else {
-            cont++;
-            var nume = document.getElementById("numero").innerHTML
-            var nume_in = document.getElementById("numero-in").value
-            if (nume == nume_in){
-                document.getElementById("out").innerHTML = "Hai indovinato!"
-            } else {
-                if(nume_in<nume){
-                    
-                }
-                document.getElementById("out").innerHTML = "Ritenta!"
-            }
+    <head>
+        <title>numeri casuali</title>
+        <h1>NUMERI CASUALI</h1>
+ 
+    </head>
+    <script>
+        var punti=0;
+        function random(){
+        num = Math.floor(Math.random()*20)+1;
+        document.getElementById("numerocasuale").value = num;
         }
-    }
+ 
+        function risultato(){
+        num=parseInt(document.getElementById("numerocasuale").value);
+        numrisposta = parseInt(document.getElementById("numero").value);
+        tent = document.getElementById("tentativi").value;3
+            if(numrisposta == num){   
+                document.getElementById("messaggio").innerHTML="corretto! ";
+            }else{
+                if(numrisposta>num){
+                document.getElementById("messaggio").innerHTML="sbagliato! Il numero da indovinare è più piccolo. ";
+            }else{
+                document.getElementById("messaggio").innerHTML="sbagliato! Il numero da indovinare è più grande. ";
+            }  
+        }
+        tent++
+        document.getElementById("tentativi").value=tent;
+            if(tent==5){
+            document.getElementById("messaggio").innerHTML="HAI FINITO I TENTATIVI";
+} 
+}
 </script>
 <body>
-   <button type="Button" onclick="Num_casuale()">Numero casuale</button> <input id="numero" type="text"> <br>
-   <input id="numero-in" type="text"> <button type="button" onclick="Verifica()">E' giusto?</button>
-   <p id="out"></p>
+    <p>
+    <button onclick = "random()">NUMERO CASUALE</button>
+    <input type = "text" id = "numerocasuale" readonly>
+    </p><p>
+    <input type = "text" id = "numero">
+    <button onclick = "risultato()">E' GIUSTO?</button>
+    tentativi <input type = "number" id = "tentativi" readonly value="0">/5
+    <p id="messaggio"></p>
 </body>
 </html>

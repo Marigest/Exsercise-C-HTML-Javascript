@@ -19,8 +19,7 @@
     function bott(){
         cont++
         if (cont<=4){
-        immagini_casuali()
-            var punteggio = 0
+        immagini_casuali()    
             if(document.getElementById("num1").src == document.getElementById("num2").src && document.getElementById("num2").src == document.getElementById("num3").src){
                 punteggio += 3
             }
@@ -31,7 +30,7 @@
                         punteggio += 0
                     }
             document.getElementById("out").innerHTML = "Punteggio = " + punteggio
-                }else if (punteggio>7){
+                }else if (punteggio>8){
                     alert("Hai vinto");
                     }else{
                         alert("Hai perso");
