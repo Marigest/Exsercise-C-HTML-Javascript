@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document</title>
+</head>
+<script>
+    var cont = 0;
+    var nume = 0;
+    function Num_casuale(){
+        nume = Math.floor(Math.random() * 20 + 1);        
+    }
+    function Rivela_numero(){
+        var nume = document.getElementById("numero").innerHTML
+        alert(nume)
+    }
+    function Verifica(){
+        if (cont>5){
+            alert("Hai finito i tentativi. Ora ti mostro la soluzione")
+            Rivela_numero()
+        } else {
+            cont++;
+            var nume = document.getElementById("numero").innerHTML
+            var nume_in = document.getElementById("numero-in").value
+            if (nume == nume_in){
+                document.getElementById("out").innerHTML = "Hai indovinato!"
+            } else {
+                if(nume_in<nume){
+                    
+                }
+                document.getElementById("out").innerHTML = "Ritenta!"
+            }
+        }
+    }
+</script>
+<body>
+   <button type="Button" onclick="Num_casuale()">Numero casuale</button> <input id="numero" type="text"> <br>
+   <input id="numero-in" type="text"> <button type="button" onclick="Verifica()">E' giusto?</button>
+   <p id="out"></p>
+</body>
+</html>

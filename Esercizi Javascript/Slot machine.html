@@ -14,13 +14,28 @@
         document.getElementById("num3").src = immagini_casuali[num3]
 
     }
+    var cont = 0
+    var punteggio = 0
     function bott(){
+        cont++
+        if (cont<=4){
         immagini_casuali()
-        var punteggio = 0
-        if(document.getElementById("num1").src == document.getElementById("num2").src && document.getElementById("num2").src == document.getElementById("num3").src){
-            punteggio = 3
-        }
-        document.getElementById("out").innerHTML = "Punteggio = " + punteggio
+            var punteggio = 0
+            if(document.getElementById("num1").src == document.getElementById("num2").src && document.getElementById("num2").src == document.getElementById("num3").src){
+                punteggio += 3
+            }
+                else if(document.getElementById("num1").src == document.getElementById("num2").src || document.getElementById("num2").src == document.getElementById("num3").src || document.getElementById("num1").src == document.getElementById("num3").src){
+                    punteggio += 1
+                }
+                    else{
+                        punteggio += 0
+                    }
+            document.getElementById("out").innerHTML = "Punteggio = " + punteggio
+                }else if (punteggio>7){
+                    alert("Hai vinto");
+                    }else{
+                        alert("Hai perso");
+                    }
     }
 </script>
 <body>
