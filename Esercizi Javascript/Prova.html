@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <title>Prenotazione Hotel</title>
+    <script>
+        var somma = 0;
+        var aggiunta = 0;
+        function Calcolo() {
+            var numero_notti = parseInt(document.getElementById("numero_notti").value)
+            somma = 0; 
+            aggiunta = 0;
+            var a = document.getElementById("num1");
+            var b = document.getElementById("num2");
+            var c = document.getElementById("num3");
+            if (a.checked) {
+                somma += parseInt(a.value);
+            } else if (b.checked) {
+                somma += parseInt(b.value);
+            } else if (c.checked) {
+                somma += parseInt(c.value);
+            }
+            var Colazione = document.getElementById("Colazione");
+            var Parcheggio = document.getElementById("Parcheggio");
+            if (Colazione.checked) {
+                aggiunta += 10;
+            }
+            if (Parcheggio.checked) {
+                aggiunta += 5;
+            }
+            var prezzoTotale = (somma * numero_notti) + (aggiunta * numero_notti);
+            document.getElementById("prez_tot").innerHTML = "Prezzo Totale: €" + prezzoTotale;
+        }
+        function Messaggio() {
+            if (document.getElementById("nome_hotel").value == "") {
+                alert("Brutta cogliona. Ora mi metti il nome dell'hotel oppure ti sgozzo");
+            } else {
+                alert("Hai appena effettuato la prenotazione al " + document.getElementById("nome_hotel").value + " per " + document.getElementById("numero_notti").value + " notti.");
+            }
+        }
+        var x
+        function Casuale(){
+            var x=Math.floor(Math.random() * 10)
+            alert(x)
+            alert("i cavalli che ti prendi in culo")
+        }
+        function negro(){
+            alert("HAI ROTTO IL CAZZO")
+        }
+    </script>
+</head>
+<body>
+    <form>
+        <h1>Prenotazione Hotel</h1> 
+        Nome: <input type="text" id="nome_hotel"> <br> 
+        Numero di notti: <input type="text" id="numero_notti" onchange="Calcolo()"> <br> 
+        <label>Camera: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Extra:</label><br>
+        <label><input type="radio" id="num1" name="camera" value="50" onchange="Calcolo()"> Singola (€50/notte) 
+        <input type="checkbox" id="Colazione" value="10" onchange="Calcolo()"> Colazione inclusa (+10/notte) </label><br>
+        <label><input type="radio" id="num2" name="camera" value="80" onchange="Calcolo()"> Doppia (€80/notte) 
+        <input type="checkbox" id="Parcheggio" value="5" onchange="Calcolo()"> Parcheggio (+5/notte) </label><br>
+        <label><input type="radio" id="num3" name="camera" value="120" onchange="Calcolo()"> Suite (€120/notte) </label><br>
+        <img src="https://img.edilportale.com/product-thumbs/b_berlino-mobilificio-sangiorgi-501461-rel75dc4898.jpg" width="150" height="100" onmouseover="negro()"> <br>
+        <p id="prez_tot">Prezzo Totale: €0</p> <br>
+        <button type="button" onclick="Messaggio()">Prenota</button>
+        <button type="button" onclick="Casuale()">Clicca per la sorpresa</button>
+        <button type="reset" onclick="Calcolo()">Reset</button>
+        <video width="320" height="340" controls> <source src='Video WhatsApp 2025-02-04 ore 23.29.56_2dbc3b27.mp4'></video>
+    </form>
+</body>
+</html>

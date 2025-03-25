@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <title>Hotel</title>
+</head>
+<style>
+    div{display: inline-block;}
+</style>
+<script>
+    function CalcolaPrezzo(){
+        var prezzo=0;
+        var aggiunta=0;
+        var n_n = parseInt(document.getElementById("numero_notti").value);
+        var camere = document.getElementsByName("camera");
+        for (var i = 0; i < camere.length; i++) {
+            if (camere[i].checked) {
+                prezzo = parseInt(camere[i].value);
+                break;
+            }
+        }
+        var Cola = parseInt(document.getElementById("Colazione").value);
+        var Parc = parseInt(document.getElementById("Parcheggio").value);
+            if (Cola.checked){
+                aggiunta = aggiunta + 10;
+            }
+            if (Parc.checked){
+                aggiunta = aggiunta + 5;
+            }
+        document.getElementById("prez_tot").innerText = "Prezzo Totale: €" + ((prezzo * n_n) + (aggiunta * n_n));
+    }
+    function Messaggio(){
+        var n_h = document.getElementById("nome_hotel").value;
+        var n_n = document.getElementById("numero_notti").value;
+        var camera = document.getElementsByName("camera");
+            for(var i = 0; i < camera.length; i++){
+                if(camera[i].checked){
+                    prezzo = camera[i].value;
+                }
+            }
+        alert("Prenotazione effettuata presso " + n_h + " per " + n_n + " notte/i. Grazie per la tua prenotazione!");
+    }
+</script>
+<body>
+    <form>
+    <h1>PRENOTAZIONE HOTEL</h1>
+    Nome:<input type="text" id="nome_hotel"> <br>
+    Numero notti:<input type="text" id="numero_notti"> <br>
+        <div>Camera: <br>
+            <input type="radio" id="camera" name="camera" value="50" onchange="CalcolaPrezzo(this)">Singola (€50/notte)<br>
+            <input type="radio" id="camera" name="camera" value="80" onchange="CalcolaPrezzo(this)">Doppia (€80/notte)<br>
+            <input type="radio" id="camera" name="camera" value="120" onchange="CalcolaPrezzo(this)">Suite (€120/notte)
+        </div>
+        <div>Extra: <br>
+            <input type="checkbox" id="Colazione" value="10" onchange="CalcolaPrezzo(this)">Colazione inclusa (+10/notte)<br>
+            <input type="checkbox" id="Parcheggio" value="5" onchange="CalcolaPrezzo(this)">Parcheggio (+5/notte)<br>
+        </div><br>
+    <img src="gatto.jpg" width="150" height="100"><br>
+    <p id="prez_tot"> </p> <br>
+    <button type="button" onclick="Messaggio(this)">Prenota</button><button type="reset">Reset</button>
+    </form>
+</body>
+</html>
