@@ -20,10 +20,13 @@
         }
         var Cola = parseInt(document.getElementById("Colazione").value);
         var Parc = parseInt(document.getElementById("Parcheggio").value);
+        alert(aa)
             if (Cola.checked){
+                alert(aaa)
                 aggiunta = aggiunta + 10;
             }
             if (Parc.checked){
+                alert(aaaa)
                 aggiunta = aggiunta + 5;
             }
         document.getElementById("prez_tot").innerText = "Prezzo Totale: €" + ((prezzo * n_n) + (aggiunta * n_n));
