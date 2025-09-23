@@ -55,12 +55,12 @@
 
     /* Stelo */
     .stelo {
-        fill: #4CAF50; /* Verde più naturale */
+        fill: #4CAF50;
     }
 
     /* Foglie */
     .foglia {
-        fill: #8BC34A; /* Verde chiaro per le foglie */
+        fill: #8BC34A;
         transform-origin: center center;
         animation: leafBreeze 12s ease-in-out infinite;
     }
@@ -76,8 +76,8 @@
 
     /* Petali */
     .petalo {
-        fill: #FFD700; /* Giallo dorato */
-        stroke: #FFC107; /* Bordo più scuro */
+        fill: #FFD700;
+        stroke: #FFC107;
         stroke-width: 1;
         transform-origin: center center;
         animation: petalPulse 3s ease-in-out infinite;
@@ -85,17 +85,16 @@
 
     /* Centro del fiore */
     .centro {
-        fill: #603813; /* Marrone scuro */
+        fill: #603813;
     }
 
     /* Stelline in background */
     .star {
         fill: white;
         animation: twinkle 5s ease-in-out infinite;
-        opacity: 0; /* Inizialmente nascoste */
+        opacity: 0;
     }
 
-    /* Animazione stelline */
     @keyframes twinkle {
         0%, 100% { opacity: 0; transform: scale(0.5); }
         50% { opacity: 1; transform: scale(1); }
@@ -108,9 +107,11 @@
 
 <div class="bouquet">
     <svg width="1000" height="800" viewBox="0 0 1000 800">
+        <!-- Foglie -->
         <path class="foglia" d="M 400 700 Q 300 650 350 550 C 400 500 450 600 400 700 Z" style="transform: rotate(-10deg) translate(30px, -20px); transform-origin: 350px 650px;"/>
         <path class="foglia" d="M 600 700 Q 700 650 650 550 C 600 500 550 600 600 700 Z" style="transform: rotate(10deg) translate(-30px, -20px); transform-origin: 650px 650px;"/>
         
+        <!-- Steli -->
         <line class="stelo" x1="500" y1="700" x2="400" y2="400" stroke-width="8" stroke="#4CAF50" />
         <line class="stelo" x1="500" y1="700" x2="600" y2="400" stroke-width="8" stroke="#4CAF50" />
         <line class="stelo" x1="500" y1="700" x2="500" y2="300" stroke-width="8" stroke="#4CAF50" />
@@ -119,86 +120,97 @@
         <line class="stelo" x1="500" y1="700" x2="420" y2="450" stroke-width="8" stroke="#4CAF50" />
         <line class="stelo" x1="500" y1="700" x2="580" y2="450" stroke-width="8" stroke="#4CAF50" />
 
+        <!-- Fiore 1 -->
         <g transform="translate(400, 400) scale(0.9)">
             <circle class="centro" cx="0" cy="0" r="25" />
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(0deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(30deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(60deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(90deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(120deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(150deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(180deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(210deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(240deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(270deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(300deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(330deg);"/>
+            <!-- 12 petali -->
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(0)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(30)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(60)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(90)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(120)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(150)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(180)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(210)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(240)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(270)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(300)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(330)" />
         </g>
-        
+
+        <!-- Fiore 2 -->
         <g transform="translate(600, 400) scale(0.9)">
             <circle class="centro" cx="0" cy="0" r="25" />
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(0deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(30deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(60deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(90deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(120deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(150deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(180deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(210deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(240deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(270deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(300deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(330deg);"/>
+            <!-- 12 petali -->
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(0)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(30)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(60)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(90)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(120)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(150)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(180)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(210)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(240)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(270)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(300)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(330)" />
         </g>
 
+        <!-- Fiore 3 -->
         <g transform="translate(500, 300) scale(1.1)">
             <circle class="centro" cx="0" cy="0" r="30" />
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(0deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(30deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(60deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(90deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(120deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(150deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(180deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(210deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(240deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(270deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(300deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(330deg);"/>
-        </g>
-        
-        <g transform="translate(450, 350) scale(0.8)">
-            <circle class="centro" cx="0" cy="0" r="20" />
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(0deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(30deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(60deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(90deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(120deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(150deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(180deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(210deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(240deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(270deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(300deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(330deg);"/>
+            <!-- 12 petali -->
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(0)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(30)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(60)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(90)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(120)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(150)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(180)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(210)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(240)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(270)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(300)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(330)" />
         </g>
 
+        <!-- Fiore 4 -->
+        <g transform="translate(450, 350) scale(0.8)">
+            <circle class="centro" cx="0" cy="0" r="20" />
+            <!-- 12 petali -->
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(0)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(30)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(60)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(90)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(120)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(150)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(180)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(210)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(240)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(270)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(300)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(330)" />
+        </g>
+
+        <!-- Fiore 5 -->
         <g transform="translate(550, 350) scale(0.8)">
             <circle class="centro" cx="0" cy="0" r="20" />
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(0deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(30deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(60deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(90deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(120deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(150deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(180deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(210deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(240deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(270deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(300deg);"/>
-            <path class="petalo" d="M0,0 L20, -60 A30,30 0 0,1 -20,-60Z" style="transform: rotate(330deg);"/>
+            <!-- 12 petali -->
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(0)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(30)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(60)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(90)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(120)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(150)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(180)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(210)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(240)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(270)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(300)" />
+            <path class="petalo" d="M0,0 L20,-60 A30,30 0 0,1 -20,-60Z" transform="rotate(330)" />
         </g>
         
+        <!-- Stelline -->
         <circle class="star" cx="100" cy="150" r="2" style="animation-delay: 1s;"/>
         <circle class="star" cx="250" cy="200" r="3" style="animation-delay: 2s;"/>
         <circle class="star" cx="700" cy="100" r="1.5" style="animation-delay: 3s;"/>
