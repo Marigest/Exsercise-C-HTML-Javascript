@@ -92,6 +92,10 @@
                 color: #5a2a82;
             }
 
+            h1.shake {
+                animation: shake-title 0.35s ease;
+            }
+
             .buttons {
                 display: flex;
                 gap: 16px;
@@ -118,6 +122,10 @@
                 transform: scale(1);
             }
 
+            #btn-si.wiggle {
+                animation: yes-wiggle 0.3s ease;
+            }
+
             #btn-no {
                 background: #e0e0e0;
                 color: #3a3a3a;
@@ -134,6 +142,7 @@
             .video-box {
                 display: none;
                 margin-top: 16px;
+                position: relative;
             }
 
             .video-box.active {
@@ -175,6 +184,25 @@
             }
 
             .modal.open .modal-content {
+                animation: pop-in 0.25s ease-out, pulse-soft 1.2s ease-in-out 0.25s;
+            }
+
+            .no-blocker {
+                position: fixed;
+                inset: 0;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                background: rgba(0, 0, 0, 0.55);
+                padding: 24px;
+                z-index: 7;
+            }
+
+            .no-blocker.open {
+                display: flex;
+            }
+
+            .no-blocker .modal-content {
                 animation: pop-in 0.25s ease-out;
             }
 
@@ -201,6 +229,26 @@
                 color: #4b0f2b;
             }
 
+            .no-messages {
+                position: fixed;
+                inset: 0;
+                pointer-events: none;
+                z-index: 4;
+            }
+
+            .no-message {
+                position: absolute;
+                padding: 10px 16px;
+                background: rgba(255, 255, 255, 0.92);
+                color: #6b3d8a;
+                border-radius: 999px;
+                border: 2px solid #f5e9ff;
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+                font-size: 14px;
+                animation: pop-fade 2.6s ease forwards;
+                white-space: nowrap;
+            }
+
 
             video {
                 width: 100%;
@@ -208,6 +256,42 @@
                 object-fit: contain;
                 border-radius: 16px;
                 border: 3px solid #f3d9ff;
+            }
+
+            .celebrate {
+                position: fixed;
+                inset: 0;
+                pointer-events: none;
+                z-index: 6;
+            }
+
+            .confetti-heart {
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                background: #ff6fae;
+                transform: rotate(45deg);
+                animation: burst 1.8s ease-out forwards;
+            }
+
+            .confetti-heart::before,
+            .confetti-heart::after {
+                content: "";
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                background: #ff6fae;
+                border-radius: 50%;
+            }
+
+            .confetti-heart::before {
+                top: -8px;
+                left: 0;
+            }
+
+            .confetti-heart::after {
+                left: -8px;
+                top: 0;
             }
 
             .note {
@@ -248,6 +332,77 @@
                     opacity: 1;
                 }
             }
+
+            @keyframes pop-fade {
+                0% {
+                    transform: translateY(8px) scale(0.9);
+                    opacity: 0;
+                }
+                20% {
+                    transform: translateY(0) scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-14px) scale(1);
+                    opacity: 0;
+                }
+            }
+
+            @keyframes shake-title {
+                0% {
+                    transform: translateX(0);
+                }
+                25% {
+                    transform: translateX(-6px);
+                }
+                50% {
+                    transform: translateX(6px);
+                }
+                75% {
+                    transform: translateX(-4px);
+                }
+                100% {
+                    transform: translateX(0);
+                }
+            }
+
+            @keyframes yes-wiggle {
+                0% {
+                    transform: scale(1) rotate(0deg);
+                }
+                35% {
+                    transform: scale(1.02) rotate(-2deg);
+                }
+                70% {
+                    transform: scale(1.02) rotate(2deg);
+                }
+                100% {
+                    transform: scale(1) rotate(0deg);
+                }
+            }
+
+            @keyframes pulse-soft {
+                0% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.02);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
+
+            @keyframes burst {
+                0% {
+                    transform: translate(0, 0) rotate(45deg) scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(var(--x), var(--y)) rotate(45deg) scale(0.6);
+                    opacity: 0;
+                }
+            }
         </style>
     </head>
     <body>
@@ -272,6 +427,8 @@
             <span style="left: 84%; animation-delay: 8s; animation-duration: 11s;"></span>
             <span style="left: 94%; animation-delay: 6s; animation-duration: 13s;"></span>
         </div>
+        <div class="no-messages" id="noMessages" aria-hidden="true"></div>
+        <div class="celebrate" id="celebrate" aria-hidden="true"></div>
         <div class="card" id="card">
             <h1>Posso rubarti a San Valentino?</h1>
             <div class="buttons" id="buttons">
@@ -293,6 +450,13 @@
             </div>
         </div>
 
+        <div class="no-blocker" id="noBlocker" aria-hidden="true">
+            <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="noBlockerText">
+                <p id="noBlockerText">Ahh… allora il mio cuore e la mia pazienza non contano nulla 😒 <br> E pensare che ci ho impiegato ore per farti questo regalo... <br> Allora ciao...</p>
+                <button id="noBlockerOk" type="button">Ok</button>
+            </div>
+        </div>
+
         <script>
             const btnNo = document.getElementById("btn-no");
             const btnSi = document.getElementById("btn-si");
@@ -301,10 +465,88 @@
             const loveModal = document.getElementById("loveModal");
             const modalText = document.getElementById("modalText");
             const modalOk = document.getElementById("modalOk");
+            const noBlocker = document.getElementById("noBlocker");
+            const noBlockerOk = document.getElementById("noBlockerOk");
+            const noMessages = document.getElementById("noMessages");
+            const celebrate = document.getElementById("celebrate");
+            const title = document.querySelector("h1");
             let yesScale = 1;
-            const loveMessage = "Sono il messaggio figo che dovra essere scritto alla fine, ma non so ancora cosa scrivere, quindi per ora questo è un placeholder. Ma non preoccuparti, sarà qualcosa di molto romantico e speciale, proprio come te!";
+            let triedNo = false;
+            let sequenceIndex = 0;
+            let noCount = 0;
+            const loveMessageQuick = "Wow, hai detto SI subito! Lo sapevo che non avresti resistito 💜";
+            const loveMessageTried = "Ahah finalmente ti sei decisa! Ma il destino era gia scelto 😉";
+            const sequences = [
+                {
+                    yes: "Sì 🙂",
+                    title: "Posso rubarti a San Valentino?",
+                    no: "Ehi… non così in fretta 😌"
+                },
+                {
+                    yes: "Dai…",
+                    title: "Stai davvero pensando al No?",
+                    no: "Forse volevi dire “Sì” 😉"
+                },
+                {
+                    yes: "Perfavore 🥺",
+                    title: "Non ti credo 😌",
+                    no: "Oggi il “No” è timido"
+                },
+                {
+                    yes: "Dai cliccami 👀",
+                    title: "Non è così difficile…",
+                    no: "Quasi… ma non proprio!"
+                },
+                {
+                    yes: "Cliccaaaaaami 😘",
+                    title: "Sai che vuoi dire sì",
+                    no: "Riprova 👀"
+                },
+                {
+                    yes: "Oh, dai… 🥺",
+                    title: "Il No non funziona oggi",
+                    no: "Lo so che lo sai 💕"
+                },
+                {
+                    yes: "Sai che è sì",
+                    title: "Non scappare",
+                    no: "Non mi prendi mai!"
+                },
+                {
+                    yes: "Cliccami 👀",
+                    title: "Ultima occasione 😏",
+                    no: "Solo SI oggi!"
+                },
+                {
+                    yes: "Non scappare",
+                    title: "Daiii",
+                    no: "Arrenditi al SI"
+                },
+                {
+                    yes: "Sto aspettando…",
+                    title: "Dai… lo volevi",
+                    no: "Il “No” oggi non vale"
+                }
+            ];
+
+            const shuffle = (items) => {
+                for (let i = items.length - 1; i > 0; i -= 1) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [items[i], items[j]] = [items[j], items[i]];
+                }
+                return items;
+            };
+
+            shuffle(sequences);
 
             const moveNoButton = () => {
+                triedNo = true;
+                noCount += 1;
+                if (noCount >= 100) {
+                    noBlocker.classList.add("open");
+                    noBlocker.setAttribute("aria-hidden", "false");
+                    return;
+                }
                 const padding = 16;
                 const maxX = Math.max(padding, window.innerWidth - btnNo.offsetWidth - padding);
                 const maxY = Math.max(padding, window.innerHeight - btnNo.offsetHeight - padding);
@@ -315,16 +557,41 @@
                 btnNo.style.left = `${x}px`;
                 btnNo.style.top = `${y}px`;
 
+                const sequence = sequences[sequenceIndex % sequences.length];
+                sequenceIndex += 1;
+
                 yesScale += 0.2;
                 btnSi.style.transform = `scale(${yesScale})`;
                 btnSi.style.background = "var(--pink-dark)";
+                btnSi.textContent = sequence.yes;
+                btnSi.classList.add("wiggle");
+                setTimeout(() => btnSi.classList.remove("wiggle"), 320);
+
+                if (title) {
+                    title.classList.add("shake");
+                    title.textContent = sequence.title;
+                    setTimeout(() => title.classList.remove("shake"), 360);
+                }
+
+                const message = document.createElement("div");
+                message.className = "no-message";
+                message.textContent = sequence.no;
+                const msgX = Math.max(12, Math.random() * (window.innerWidth - 140));
+                const msgY = Math.max(12, Math.random() * (window.innerHeight - 80));
+                message.style.left = `${msgX}px`;
+                message.style.top = `${msgY}px`;
+                noMessages.appendChild(message);
+                setTimeout(() => {
+                    message.remove();
+                }, 2700);
             };
 
             btnNo.addEventListener("mouseenter", moveNoButton);
             btnNo.addEventListener("focus", moveNoButton);
 
+
             btnSi.addEventListener("click", () => {
-                modalText.textContent = loveMessage;
+                modalText.textContent = triedNo ? loveMessageTried : loveMessageQuick;
                 loveModal.classList.add("open");
                 loveModal.setAttribute("aria-hidden", "false");
             });
@@ -334,9 +601,30 @@
                 loveModal.setAttribute("aria-hidden", "true");
                 videoBox.classList.add("active");
                 document.body.classList.add("show-video");
+                for (let i = 0; i < 18; i += 1) {
+                    const heart = document.createElement("span");
+                    heart.className = "confetti-heart";
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 120 + Math.random() * 140;
+                    const x = Math.cos(angle) * distance;
+                    const y = Math.sin(angle) * distance;
+                    heart.style.left = "50%";
+                    heart.style.top = "50%";
+                    heart.style.setProperty("--x", `${x}px`);
+                    heart.style.setProperty("--y", `${y}px`);
+                    celebrate.appendChild(heart);
+                    setTimeout(() => heart.remove(), 1900);
+                }
                 if (video && video.querySelector("source").src) {
                     video.play().catch(() => {});
                 }
+            });
+
+            noBlockerOk.addEventListener("click", () => {
+                noBlocker.classList.remove("open");
+                noBlocker.setAttribute("aria-hidden", "true");
+                window.close();
+                window.location.href = "about:blank";
             });
         </script>
     </body>
