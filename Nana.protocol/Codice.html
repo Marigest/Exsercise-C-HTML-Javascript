@@ -149,6 +149,18 @@
                 display: block;
             }
 
+            .video-actions {
+                margin-top: 16px;
+                display: flex;
+                justify-content: center;
+            }
+
+            #videoDoneBtn {
+                display: none;
+                background: var(--pink-dark);
+                color: #4b0f2b;
+            }
+
             .show-video .card {
                 background: transparent;
                 box-shadow: none;
@@ -234,6 +246,40 @@
                 margin: 0;
             }
 
+               .final-screen {
+                   position: fixed;
+                   inset: 0;
+                   display: none;
+                   align-items: center;
+                   justify-content: center;
+                background: transparent;
+                   z-index: 9;
+                   text-align: center;
+                   padding: 24px;
+               }
+
+               .final-screen.open {
+                   display: flex;
+               }
+
+            .final-screen h2 {
+                font-size: 44px;
+                color: #5a2a82;
+                margin: 0;
+            }
+
+            .final-state .card,
+            .final-state .video-box {
+                display: none;
+            }
+
+            .final-screen .heart {
+                font-size: 64px;
+                margin-top: 12px;
+                color: #c9a1ff;
+                animation: heart-pulse 1.2s ease-in-out infinite;
+            }
+
             .no-blocker img {
                 width: 100%;
                 max-width: 320px;
@@ -271,6 +317,41 @@
             .modal-content button {
                 background: var(--pink-dark);
                 color: #4b0f2b;
+            }
+
+            .choice-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 16px;
+                margin-bottom: 16px;
+            }
+
+            .choice-card {
+                border: 2px solid #f5e9ff;
+                border-radius: 16px;
+                padding: 12px;
+                background: #fff;
+                text-align: center;
+            }
+
+            .choice-card img {
+                width: 100%;
+                height: 160px;
+                object-fit: cover;
+                border-radius: 12px;
+                margin-bottom: 8px;
+            }
+
+            .choice-card h3 {
+                margin: 6px 0 6px;
+                font-size: 18px;
+                color: #5a2a82;
+            }
+
+            .choice-card p {
+                margin: 0 0 10px;
+                font-size: 14px;
+                color: #6b3d8a;
             }
 
             .no-messages {
@@ -448,6 +529,18 @@
                 }
             }
 
+            @keyframes heart-pulse {
+                0% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.15);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
+
             @keyframes message-burst {
                 0% {
                     transform: scale(1);
@@ -496,6 +589,9 @@
                 <video id="video" controls>
                     <source src="Video/Video WhatsApp 2025-02-04 ore 23.29.56_2dbc3b27.mp4" type="video/mp4" />
                 </video>
+                <div class="video-actions">
+                    <button id="videoDoneBtn" type="button">Hai finito il video?<br>Clicca qui!!!</button>
+                </div>
             </div>
         </div>
 
@@ -503,6 +599,33 @@
             <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalText">
                 <p id="modalText"></p>
                 <button id="modalOk" type="button">Ok</button>
+            </div>
+        </div>
+
+        <div class="modal" id="choiceModal" aria-hidden="true">
+            <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="choiceTitle">
+                <h3 id="choiceTitle">Scegli una opzione</h3>
+                <div class="choice-grid">
+                    <div class="choice-card">
+                        <img id="choiceImgA" src="Foto/opzione-a.jpg" alt="Opzione A" />
+                        <h3 id="choiceTitleA">Opzione A</h3>
+                        <p id="choiceDescA">Descrizione A</p>
+                        <button id="choiceBtnA" type="button">Scegli</button>
+                    </div>
+                    <div class="choice-card">
+                        <img id="choiceImgB" src="Foto/opzione-b.jpg" alt="Opzione B" />
+                        <h3 id="choiceTitleB">Opzione B</h3>
+                        <p id="choiceDescB">Descrizione B</p>
+                        <button id="choiceBtnB" type="button">Scegli</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="choiceMessageModal" aria-hidden="true">
+            <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="choiceMessageText">
+                <p id="choiceMessageText"></p>
+                <button id="choiceMessageOk" type="button">Ok</button>
             </div>
         </div>
 
@@ -519,6 +642,13 @@
             <p>Porca Troia... Il cazzo di comando "ALT-F4" che avevo preparato si è rotto... Faccio cagare pure a programmare... Sappi che è colpa tua 🙄💔</p>
         </div>
 
+           <div class="final-screen" id="finalScreen" aria-hidden="true">
+            <div>
+                <h2>Buon San Valentino Amore mio!!</h2>
+                <div class="heart">💕</div>
+            </div>
+           </div>
+
         <script>
             const btnNo = document.getElementById("btn-no");
             const btnSi = document.getElementById("btn-si");
@@ -528,12 +658,26 @@
             const modalText = document.getElementById("modalText");
             const modalOk = document.getElementById("modalOk");
             const modalContent = loveModal.querySelector(".modal-content");
+            const videoDoneBtn = document.getElementById("videoDoneBtn");
+            const choiceModal = document.getElementById("choiceModal");
+            const choiceMessageModal = document.getElementById("choiceMessageModal");
+            const choiceMessageText = document.getElementById("choiceMessageText");
+            const choiceMessageOk = document.getElementById("choiceMessageOk");
+            const choiceBtnA = document.getElementById("choiceBtnA");
+            const choiceBtnB = document.getElementById("choiceBtnB");
+            const choiceTitleA = document.getElementById("choiceTitleA");
+            const choiceTitleB = document.getElementById("choiceTitleB");
+            const choiceDescA = document.getElementById("choiceDescA");
+            const choiceDescB = document.getElementById("choiceDescB");
+            const choiceImgA = document.getElementById("choiceImgA");
+            const choiceImgB = document.getElementById("choiceImgB");
             const noBlocker = document.getElementById("noBlocker");
             const noBlockerOk = document.getElementById("noBlockerOk");
             const noBlockerImg = document.getElementById("noBlockerImg");
             const noBlockerText = document.getElementById("noBlockerText");
             const noBlockerDesc = document.getElementById("noBlockerDesc");
             const finalFallback = document.getElementById("finalFallback");
+               const finalScreen = document.getElementById("finalScreen");
             const noMessages = document.getElementById("noMessages");
             const celebrate = document.getElementById("celebrate");
             const title = document.querySelector("h1");
@@ -548,6 +692,24 @@
             const loveMessageExtra2 = "(Scrivi qui il terzo messaggio)";
             let modalMessages = [];
             let modalIndex = 0;
+            let wrongChoices = 0;
+               let correctChosen = false;
+            const correctChoice = "B";
+            const choiceMessageCorrect = "(Scrivi qui il messaggio per la scelta corretta)";
+            const choiceMessageWrong1 = "(Scrivi qui il messaggio per il primo errore)";
+            const choiceMessageWrong2 = "(Scrivi qui il messaggio per il secondo errore)";
+            const choiceData = {
+                A: {
+                    title: "Opzione A",
+                    desc: "Descrizione A",
+                    img: "Foto/opzione-a.jpg"
+                },
+                B: {
+                    title: "Opzione B",
+                    desc: "Descrizione B",
+                    img: "Foto/opzione-b.jpg"
+                }
+            };
             const sequences = [
                 {
                     yes: "Sì 🙂",
@@ -628,6 +790,33 @@
                 }
             };
 
+            const openChoiceModal = () => {
+                choiceTitleA.textContent = choiceData.A.title;
+                choiceDescA.textContent = choiceData.A.desc;
+                choiceImgA.src = choiceData.A.img;
+                choiceTitleB.textContent = choiceData.B.title;
+                choiceDescB.textContent = choiceData.B.desc;
+                choiceImgB.src = choiceData.B.img;
+                choiceModal.classList.add("open");
+                choiceModal.setAttribute("aria-hidden", "false");
+            };
+
+            const closeChoiceModal = () => {
+                choiceModal.classList.remove("open");
+                choiceModal.setAttribute("aria-hidden", "true");
+            };
+
+            const openChoiceMessage = (text) => {
+                choiceMessageText.textContent = text;
+                choiceMessageModal.classList.add("open");
+                choiceMessageModal.setAttribute("aria-hidden", "false");
+            };
+
+            const closeChoiceMessage = () => {
+                choiceMessageModal.classList.remove("open");
+                choiceMessageModal.setAttribute("aria-hidden", "true");
+            };
+
             const moveNoButton = () => {
                 triedNo = true;
                 noCount += 1;
@@ -657,7 +846,7 @@
                     noBlocker.setAttribute("aria-hidden", "false");
                     return;
                 }
-                if (noCount >= 90) {
+                if (noCount === 90) {
                     shouldClose = false;
                     noBlockerText.textContent = "Così però fa un po’ male 😢";
                     noBlockerDesc.textContent = "È il 90ª No... Non sono uno scherzo 😒\nSe non mi volevi, potevi anche dirmelo prima…\nio ci sto mettendo il cuore, eh! 💔";
@@ -782,6 +971,57 @@
                     videoBox.classList.add("active");
                     document.body.classList.add("show-video");
                 }, 360);
+            });
+
+            if (video) {
+                video.addEventListener("ended", () => {
+                    videoDoneBtn.style.display = "inline-flex";
+                });
+            }
+
+            videoDoneBtn.addEventListener("click", () => {
+                openChoiceModal();
+            });
+
+            const handleChoice = (choice) => {
+                closeChoiceModal();
+                if (choice === correctChoice) {
+                       correctChosen = true;
+                    openChoiceMessage(choiceMessageCorrect);
+                    return;
+                }
+                wrongChoices += 1;
+                if (wrongChoices === 1) {
+                    openChoiceMessage(choiceMessageWrong1);
+                } else {
+                    openChoiceMessage(choiceMessageWrong2);
+                }
+            };
+
+            choiceBtnA.addEventListener("click", () => handleChoice("A"));
+            choiceBtnB.addEventListener("click", () => handleChoice("B"));
+
+            choiceMessageOk.addEventListener("click", () => {
+                const wasWrong = wrongChoices > 0 && wrongChoices < 2 && choiceMessageText.textContent === choiceMessageWrong1;
+                closeChoiceMessage();
+                if (wrongChoices >= 2) {
+                    window.close();
+                    setTimeout(() => {
+                        if (finalFallback) {
+                            finalFallback.classList.add("open");
+                            finalFallback.setAttribute("aria-hidden", "false");
+                        }
+                    }, 200);
+                    return;
+                }
+                   if (correctChosen) {
+                    document.body.classList.add("final-state");
+                       finalScreen.classList.add("open");
+                       finalScreen.setAttribute("aria-hidden", "false");
+                   }
+                if (wasWrong) {
+                    openChoiceModal();
+                }
             });
 
             noBlockerOk.addEventListener("click", () => {
