@@ -206,6 +206,21 @@
                 animation: pop-in 0.25s ease-out;
             }
 
+            .no-blocker img {
+                width: 100%;
+                max-width: 320px;
+                border-radius: 14px;
+                margin: 0 auto 12px;
+                display: block;
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+            }
+
+            .no-blocker .desc {
+                margin: 0 0 18px;
+                font-size: 16px;
+                color: #5a2a82;
+            }
+
             .modal-content {
                 background: #fff7ff;
                 border-radius: 18px;
@@ -452,7 +467,9 @@
 
         <div class="no-blocker" id="noBlocker" aria-hidden="true">
             <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="noBlockerText">
-                <p id="noBlockerText">Ahh… allora il mio cuore e la mia pazienza non contano nulla 😒 <br> E pensare che ci ho impiegato ore per farti questo regalo... <br> Allora ciao...</p>
+                <img id="noBlockerImg" src="bello.jpg" alt="Noi" />
+                <p id="noBlockerText">Ok, ora basta col No 😅</p>
+                <p class="desc" id="noBlockerDesc">Qui scrivi una descrizione piu lunga e personale sotto la foto.</p>
                 <button id="noBlockerOk" type="button">Ok</button>
             </div>
         </div>
@@ -467,6 +484,9 @@
             const modalOk = document.getElementById("modalOk");
             const noBlocker = document.getElementById("noBlocker");
             const noBlockerOk = document.getElementById("noBlockerOk");
+            const noBlockerImg = document.getElementById("noBlockerImg");
+            const noBlockerText = document.getElementById("noBlockerText");
+            const noBlockerDesc = document.getElementById("noBlockerDesc");
             const noMessages = document.getElementById("noMessages");
             const celebrate = document.getElementById("celebrate");
             const title = document.querySelector("h1");
@@ -474,8 +494,9 @@
             let triedNo = false;
             let sequenceIndex = 0;
             let noCount = 0;
+            let shouldClose = false;
             const loveMessageQuick = "Wow, hai detto SI subito! Lo sapevo che non avresti resistito 💜";
-            const loveMessageTried = "Ahah finalmente ti sei decisa! Ma il destino era gia scelto 😉";
+            const loveMessageTried = "Ahah finalmente ti sei decisa! Ma il destino era già stato scelto 😉";
             const sequences = [
                 {
                     yes: "Sì 🙂",
@@ -543,6 +564,27 @@
                 triedNo = true;
                 noCount += 1;
                 if (noCount >= 100) {
+                    shouldClose = true;
+                    noBlockerText.innerHTML = "Ah… allora il mio cuore e la mia pazienza non contano nulla... 😢<br>E pensare che ci ho messo tanto a preparare tutto questo 😔<br>Allora ciao, spero ti diverta con qualcun altro... 💔";
+                    if (noBlockerImg) {
+                        noBlockerImg.style.display = "none";
+                    }
+                    if (noBlockerDesc) {
+                        noBlockerDesc.textContent = "";
+                        noBlockerDesc.style.display = "none";
+                    }
+                    noBlocker.classList.add("open");
+                    noBlocker.setAttribute("aria-hidden", "false");
+                    return;
+                }
+                if (noCount === 50) {
+                    shouldClose = false;
+                    noBlockerText.textContent = "Ok, ora basta col No 😅";
+                    noBlockerDesc.textContent = "Qui scrivi una descrizione piu lunga e personale sotto la foto.";
+                    noBlockerDesc.style.display = "block";
+                    if (noBlockerImg) {
+                        noBlockerImg.style.display = "block";
+                    }
                     noBlocker.classList.add("open");
                     noBlocker.setAttribute("aria-hidden", "false");
                     return;
@@ -623,8 +665,10 @@
             noBlockerOk.addEventListener("click", () => {
                 noBlocker.classList.remove("open");
                 noBlocker.setAttribute("aria-hidden", "true");
-                window.close();
-                window.location.href = "about:blank";
+                if (shouldClose) {
+                    window.close();
+                    window.location.href = "about:blank";
+                }
             });
         </script>
     </body>
