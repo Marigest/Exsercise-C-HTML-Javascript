@@ -187,6 +187,10 @@
                 animation: pop-in 0.25s ease-out, pulse-soft 1.2s ease-in-out 0.25s;
             }
 
+            .modal-content.burst {
+                animation: message-burst 0.35s ease;
+            }
+
             .no-blocker {
                 position: fixed;
                 inset: 0;
@@ -206,6 +210,30 @@
                 animation: pop-in 0.25s ease-out;
             }
 
+            .final-fallback {
+                position: fixed;
+                inset: 0;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                background: rgba(20, 10, 30, 0.85);
+                color: #fff;
+                text-align: center;
+                padding: 24px;
+                z-index: 8;
+            }
+
+            .final-fallback.open {
+                display: flex;
+            }
+
+            .final-fallback p {
+                max-width: 520px;
+                font-size: 18px;
+                line-height: 1.4;
+                margin: 0;
+            }
+
             .no-blocker img {
                 width: 100%;
                 max-width: 320px;
@@ -219,6 +247,7 @@
                 margin: 0 0 18px;
                 font-size: 16px;
                 color: #5a2a82;
+                white-space: pre-line;
             }
 
             .modal-content {
@@ -418,6 +447,18 @@
                     opacity: 0;
                 }
             }
+
+            @keyframes message-burst {
+                0% {
+                    transform: scale(1);
+                }
+                40% {
+                    transform: scale(1.04);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
         </style>
     </head>
     <body>
@@ -453,7 +494,7 @@
             <p class="note">⚠️ Warning: l’opzione “No” potrebbe non collaborare.</p>
             <div class="video-box" id="videoBox">
                 <video id="video" controls>
-                    <source src="Video WhatsApp 2025-02-04 ore 23.29.56_2dbc3b27.mp4" type="video/mp4" />
+                    <source src="Video/Video WhatsApp 2025-02-04 ore 23.29.56_2dbc3b27.mp4" type="video/mp4" />
                 </video>
             </div>
         </div>
@@ -467,11 +508,15 @@
 
         <div class="no-blocker" id="noBlocker" aria-hidden="true">
             <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="noBlockerText">
-                <img id="noBlockerImg" src="bello.jpg" alt="Noi" />
+                <img id="noBlockerImg" src="Foto/bello.jpg" alt="Noi" />
                 <p id="noBlockerText">Ok, ora basta col No 😅</p>
                 <p class="desc" id="noBlockerDesc">Qui scrivi una descrizione piu lunga e personale sotto la foto.</p>
                 <button id="noBlockerOk" type="button">Ok</button>
             </div>
+        </div>
+
+        <div class="final-fallback" id="finalFallback" aria-hidden="true">
+            <p>Porca Troia... Il cazzo di comando "ALT-F4" che avevo prerato si è rotto... Faccio cagare pure a programmare... Sappi che è colpa tua 🙄💔</p>
         </div>
 
         <script>
@@ -482,11 +527,13 @@
             const loveModal = document.getElementById("loveModal");
             const modalText = document.getElementById("modalText");
             const modalOk = document.getElementById("modalOk");
+            const modalContent = loveModal.querySelector(".modal-content");
             const noBlocker = document.getElementById("noBlocker");
             const noBlockerOk = document.getElementById("noBlockerOk");
             const noBlockerImg = document.getElementById("noBlockerImg");
             const noBlockerText = document.getElementById("noBlockerText");
             const noBlockerDesc = document.getElementById("noBlockerDesc");
+            const finalFallback = document.getElementById("finalFallback");
             const noMessages = document.getElementById("noMessages");
             const celebrate = document.getElementById("celebrate");
             const title = document.querySelector("h1");
@@ -495,8 +542,12 @@
             let sequenceIndex = 0;
             let noCount = 0;
             let shouldClose = false;
-            const loveMessageQuick = "Wow, hai detto SI subito! Lo sapevo che non avresti resistito 💜";
+            const loveMessageQuick = "Wow, hai detto SI subito! Lo sapevo che non avresti resistito 💕";
             const loveMessageTried = "Ahah finalmente ti sei decisa! Ma il destino era già stato scelto 😉";
+            const loveMessageExtra1 = "(Scrivi qui il secondo messaggio)";
+            const loveMessageExtra2 = "(Scrivi qui il terzo messaggio)";
+            let modalMessages = [];
+            let modalIndex = 0;
             const sequences = [
                 {
                     yes: "Sì 🙂",
@@ -560,6 +611,23 @@
 
             shuffle(sequences);
 
+            const spawnHeartBurst = (centerX, centerY) => {
+                for (let i = 0; i < 18; i += 1) {
+                    const heart = document.createElement("span");
+                    heart.className = "confetti-heart";
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 120 + Math.random() * 140;
+                    const x = Math.cos(angle) * distance;
+                    const y = Math.sin(angle) * distance;
+                    heart.style.left = `${centerX}px`;
+                    heart.style.top = `${centerY}px`;
+                    heart.style.setProperty("--x", `${x}px`);
+                    heart.style.setProperty("--y", `${y}px`);
+                    celebrate.appendChild(heart);
+                    setTimeout(() => heart.remove(), 1900);
+                }
+            };
+
             const moveNoButton = () => {
                 triedNo = true;
                 noCount += 1;
@@ -577,10 +645,49 @@
                     noBlocker.setAttribute("aria-hidden", "false");
                     return;
                 }
+                if (noCount === 95) {
+                    shouldClose = false;
+                    noBlockerText.textContent = "Amore… stai esagerando 😑";
+                    noBlockerDesc.textContent = "Adesso clicca sto cazzo di pulsante gigante rosa.\nNon farmi arrivare a 100 clic sul No, ti prego 😭";
+                    noBlockerDesc.style.display = "block";
+                    if (noBlockerImg) {
+                        noBlockerImg.style.display = "block";
+                    }
+                    noBlocker.classList.add("open");
+                    noBlocker.setAttribute("aria-hidden", "false");
+                    return;
+                }
+                if (noCount >= 90) {
+                    shouldClose = false;
+                    noBlockerText.textContent = "Così però fa un po’ male 😢";
+                    noBlockerDesc.textContent = "È il 90ª No... Non sono uno scherzo 😒\nSe non mi volevi, potevi anche dirmelo prima…\nio ci sto mettendo il cuore, eh! 💔";
+                    noBlockerDesc.style.display = "block";
+                    if (noBlockerImg) {
+                        noBlockerImg.style.display = "block";
+                    }
+                    noBlocker.classList.add("open");
+                    noBlocker.setAttribute("aria-hidden", "false");
+                    return;
+                }
+                if (noCount === 75) {
+                    shouldClose = false;
+                    noBlockerText.textContent = "Ok, fermiamoci un attimo 😅";
+                    noBlockerDesc.textContent = "È il 75ª No.\nA questo punto o ti diverte vedermi soffrire\noppure il pulsante Sì ti mette soggezione 😂";
+                    noBlockerDesc.style.display = "block";
+                    if (noBlockerImg) {
+                        noBlockerImg.style.display = "block";
+                    }
+                    noBlocker.classList.add("open");
+                    noBlocker.setAttribute("aria-hidden", "false");
+                    if (noBlockerOk) {
+                        noBlockerOk.style.display = "inline-flex";
+                    }
+                    return;
+                } 
                 if (noCount === 50) {
                     shouldClose = false;
-                    noBlockerText.textContent = "Ok, ora basta col No 😅";
-                    noBlockerDesc.textContent = "Qui scrivi una descrizione piu lunga e personale sotto la foto.";
+                    noBlockerText.textContent = "Amore… è la 50ª volta che clicchi No 😅";
+                    noBlockerDesc.textContent = "Ti stai impegnando davvero tantissimo 😅\nOra però fai la cosa semplice: clicca Sì";
                     noBlockerDesc.style.display = "block";
                     if (noBlockerImg) {
                         noBlockerImg.style.display = "block";
@@ -630,36 +737,51 @@
 
             btnNo.addEventListener("mouseenter", moveNoButton);
             btnNo.addEventListener("focus", moveNoButton);
+            btnNo.addEventListener("touchstart", (event) => {
+                event.preventDefault();
+                moveNoButton();
+            }, { passive: false });
+            btnNo.addEventListener("click", moveNoButton);
 
 
             btnSi.addEventListener("click", () => {
-                modalText.textContent = triedNo ? loveMessageTried : loveMessageQuick;
+                modalMessages = [
+                    triedNo ? loveMessageTried : loveMessageQuick,
+                    loveMessageExtra1,
+                    loveMessageExtra2
+                ];
+                modalIndex = 0;
+                modalText.textContent = modalMessages[modalIndex];
                 loveModal.classList.add("open");
                 loveModal.setAttribute("aria-hidden", "false");
             });
 
             modalOk.addEventListener("click", () => {
-                loveModal.classList.remove("open");
-                loveModal.setAttribute("aria-hidden", "true");
-                videoBox.classList.add("active");
-                document.body.classList.add("show-video");
-                for (let i = 0; i < 18; i += 1) {
-                    const heart = document.createElement("span");
-                    heart.className = "confetti-heart";
-                    const angle = Math.random() * Math.PI * 2;
-                    const distance = 120 + Math.random() * 140;
-                    const x = Math.cos(angle) * distance;
-                    const y = Math.sin(angle) * distance;
-                    heart.style.left = "50%";
-                    heart.style.top = "50%";
-                    heart.style.setProperty("--x", `${x}px`);
-                    heart.style.setProperty("--y", `${y}px`);
-                    celebrate.appendChild(heart);
-                    setTimeout(() => heart.remove(), 1900);
+                if (modalIndex < modalMessages.length - 1) {
+                    const rect = modalContent.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    spawnHeartBurst(centerX, centerY);
+                    modalContent.classList.add("burst");
+                    setTimeout(() => modalContent.classList.remove("burst"), 360);
+                    modalIndex += 1;
+                    setTimeout(() => {
+                        modalText.textContent = modalMessages[modalIndex];
+                    }, 360);
+                    return;
                 }
-                if (video && video.querySelector("source").src) {
-                    video.play().catch(() => {});
-                }
+                const rect = modalContent.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                spawnHeartBurst(centerX, centerY);
+                modalContent.classList.add("burst");
+                setTimeout(() => modalContent.classList.remove("burst"), 360);
+                setTimeout(() => {
+                    loveModal.classList.remove("open");
+                    loveModal.setAttribute("aria-hidden", "true");
+                    videoBox.classList.add("active");
+                    document.body.classList.add("show-video");
+                }, 360);
             });
 
             noBlockerOk.addEventListener("click", () => {
@@ -667,7 +789,12 @@
                 noBlocker.setAttribute("aria-hidden", "true");
                 if (shouldClose) {
                     window.close();
-                    window.location.href = "about:blank";
+                    setTimeout(() => {
+                        if (finalFallback) {
+                            finalFallback.classList.add("open");
+                            finalFallback.setAttribute("aria-hidden", "false");
+                        }
+                    }, 200);
                 }
             });
         </script>
