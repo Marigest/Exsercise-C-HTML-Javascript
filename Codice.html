@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Buon San Valentino</title>
+        <link
+            rel="icon"
+            href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23c9a1ff' d='M50 86s-28-16.5-38.5-34.5C3.5 37.5 7 20 23.5 16.5 34.5 14 44 20 50 29.5 56 20 65.5 14 76.5 16.5 93 20 96.5 37.5 88.5 51.5 78 69.5 50 86 50 86z'/%3E%3C/svg%3E"
+        />
+        <style>
+            :root {
+                --lilac: #d7b7ff;
+                --lilac-dark: #b58fe8;
+                --white: #ffffff;
+                --pink: #ff8fb7;
+                --pink-dark: #ff6aa2;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                font-family: "Georgia", "Times New Roman", serif;
+                background: radial-gradient(circle at top, #efe1ff 0%, var(--lilac) 55%, var(--lilac-dark) 100%);
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 24px;
+            }
+
+            .hearts {
+                position: fixed;
+                inset: 0;
+                pointer-events: none;
+                overflow: hidden;
+                z-index: 0;
+            }
+
+            .hearts span {
+                position: absolute;
+                bottom: -10vh;
+                width: 20px;
+                height: 20px;
+                background: #ff6fae;
+                transform: rotate(45deg);
+                opacity: 0.9;
+                animation: float-heart 10s linear infinite;
+                box-shadow: 0 0 12px rgba(255, 111, 174, 0.6);
+            }
+
+            .hearts span::before,
+            .hearts span::after {
+                content: "";
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                background: #ff6fae;
+                border-radius: 50%;
+            }
+
+            .hearts span::before {
+                top: -10px;
+                left: 0;
+            }
+
+            .hearts span::after {
+                left: -10px;
+                top: 0;
+            }
+
+            .card {
+                background: var(--white);
+                border-radius: 20px;
+                padding: 36px 32px 28px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+                max-width: 640px;
+                width: 100%;
+                text-align: center;
+                border: 4px solid #f5e9ff;
+                position: relative;
+                z-index: 1;
+            }
+
+            h1 {
+                margin: 0 0 24px;
+                font-size: 28px;
+                letter-spacing: 0.5px;
+                color: #5a2a82;
+            }
+
+            h1.shake {
+                animation: shake-title 0.35s ease;
+            }
+
+            .buttons {
+                display: flex;
+                gap: 16px;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+                margin-bottom: 18px;
+                position: relative;
+            }
+
+            button {
+                border: none;
+                border-radius: 999px;
+                padding: 14px 28px;
+                font-size: 18px;
+                cursor: pointer;
+                transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+                box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+            }
+
+            #btn-si {
+                background: var(--pink);
+                color: #4b0f2b;
+                transform: scale(1);
+            }
+
+            #btn-si.wiggle {
+                animation: yes-wiggle 0.3s ease;
+            }
+
+            #btn-no {
+                background: #e0e0e0;
+                color: #3a3a3a;
+                transform: scale(1);
+                position: static;
+            }
+
+            #btn-no.no-fleeing {
+                position: fixed;
+                z-index: 3;
+                transition: left 0.18s ease, top 0.18s ease, transform 0.15s ease;
+            }
+
+            .video-box {
+                display: none;
+                margin-top: 16px;
+                position: relative;
+            }
+
+            .video-box.active {
+                display: block;
+            }
+
+            .video-actions {
+                margin-top: 16px;
+                display: flex;
+                justify-content: center;
+            }
+
+            #videoDoneBtn {
+                display: none;
+                background: var(--pink-dark);
+                color: #4b0f2b;
+            }
+
+            .show-video .card {
+                background: transparent;
+                box-shadow: none;
+                border: none;
+                padding: 0;
+                max-width: 900px;
+                width: min(90vw, 900px);
+            }
+
+            .show-video h1,
+            .show-video .buttons,
+            .show-video .note {
+                display: none;
+            }
+
+            .show-video .video-box {
+                display: block;
+            }
+
+            .modal {
+                position: fixed;
+                inset: 0;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                background: rgba(0, 0, 0, 0.5);
+                padding: 24px;
+                z-index: 5;
+            }
+
+            .modal.open {
+                display: flex;
+            }
+
+            .modal.open .modal-content {
+                animation: pop-in 0.25s ease-out, pulse-soft 1.2s ease-in-out 0.25s;
+            }
+
+            .modal-content.burst {
+                animation: message-burst 0.35s ease;
+            }
+
+            .no-blocker {
+                position: fixed;
+                inset: 0;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                background: rgba(0, 0, 0, 0.55);
+                padding: 24px;
+                z-index: 7;
+            }
+
+            .no-blocker.open {
+                display: flex;
+            }
+
+            .no-blocker .modal-content {
+                animation: pop-in 0.25s ease-out;
+            }
+
+            .final-fallback {
+                position: fixed;
+                inset: 0;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                background: rgba(20, 10, 30, 0.85);
+                color: #fff;
+                text-align: center;
+                padding: 24px;
+                z-index: 8;
+            }
+
+            .final-fallback.open {
+                display: flex;
+            }
+
+            .final-fallback p {
+                max-width: 520px;
+                font-size: 18px;
+                line-height: 1.4;
+                margin: 0;
+            }
+
+               .final-screen {
+                   position: fixed;
+                   inset: 0;
+                   display: none;
+                   align-items: center;
+                   justify-content: center;
+                background: transparent;
+                   z-index: 9;
+                   text-align: center;
+                   padding: 24px;
+               }
+
+               .final-screen.open {
+                   display: flex;
+               }
+
+            .final-screen h2 {
+                font-size: 44px;
+                color: #5a2a82;
+                margin: 0;
+            }
+
+            .final-state .card,
+            .final-state .video-box {
+                display: none;
+            }
+
+            .final-screen .heart {
+                font-size: 64px;
+                margin-top: 12px;
+                color: #c9a1ff;
+                animation: heart-pulse 1.2s ease-in-out infinite;
+            }
+
+            .no-blocker img {
+                width: 100%;
+                max-width: 320px;
+                border-radius: 14px;
+                margin: 0 auto 12px;
+                display: block;
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+            }
+
+            .no-blocker .desc {
+                margin: 0 0 18px;
+                font-size: 16px;
+                color: #5a2a82;
+                white-space: pre-line;
+            }
+
+            .modal-content {
+                background: #fff7ff;
+                border-radius: 18px;
+                padding: 24px;
+                max-width: 520px;
+                width: 100%;
+                text-align: center;
+                box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+                border: 3px solid #f5e9ff;
+            }
+
+            #choiceModal .modal-content {
+                max-width: 720px;
+                padding: 28px;
+            }
+
+            .modal-content p {
+                margin: 0 0 18px;
+                font-size: 18px;
+                color: #5a2a82;
+                word-break: break-word;
+            }
+
+            #choiceMessageImg {
+                width: 100%;
+                max-height: 40vh;
+                object-fit: contain;
+                border-radius: 14px;
+                border: 2px solid #f3d9ff;
+                margin: 0 0 12px;
+                display: none;
+                background: #f5e9ff;
+            }
+
+            #choiceMessageVideo {
+                width: 100%;
+                max-height: 45vh;
+                border-radius: 14px;
+                border: 2px solid #f3d9ff;
+                margin: 0 0 12px;
+                display: none;
+            }
+
+            .choice-message-desc {
+                font-size: 15px;
+                color: #6b3d8a;
+                margin: 0 0 16px;
+                display: none;
+            }
+
+            .modal-content button {
+                background: var(--pink-dark);
+                color: #4b0f2b;
+            }
+
+            .choice-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 16px;
+                margin-bottom: 16px;
+            }
+
+            .choice-card {
+                border: 2px solid #f5e9ff;
+                border-radius: 16px;
+                padding: 16px;
+                background: #fff;
+                text-align: center;
+            }
+
+            .choice-card img {
+                width: 100%;
+                height: 210px;
+                object-fit: contain;
+                background: #f5e9ff;
+                border-radius: 12px;
+                margin-bottom: 8px;
+            }
+
+            .choice-card h3 {
+                margin: 6px 0 6px;
+                font-size: 20px;
+                color: #5a2a82;
+            }
+
+            .choice-card p {
+                margin: 0 0 10px;
+                font-size: 15px;
+                color: #6b3d8a;
+            }
+
+            .no-messages {
+                position: fixed;
+                inset: 0;
+                pointer-events: none;
+                z-index: 4;
+            }
+
+            .no-message {
+                position: absolute;
+                padding: 10px 16px;
+                background: rgba(255, 255, 255, 0.92);
+                color: #6b3d8a;
+                border-radius: 999px;
+                border: 2px solid #f5e9ff;
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+                font-size: 14px;
+                animation: pop-fade 2.6s ease forwards;
+                white-space: nowrap;
+            }
+
+
+            video {
+                width: 100%;
+                max-height: 70vh;
+                object-fit: contain;
+                border-radius: 16px;
+                border: 3px solid #f3d9ff;
+            }
+
+            .celebrate {
+                position: fixed;
+                inset: 0;
+                pointer-events: none;
+                z-index: 6;
+            }
+
+            .confetti-heart {
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                background: #ff6fae;
+                transform: rotate(45deg);
+                animation: burst 1.8s ease-out forwards;
+            }
+
+            .confetti-heart::before,
+            .confetti-heart::after {
+                content: "";
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                background: #ff6fae;
+                border-radius: 50%;
+            }
+
+            .confetti-heart::before {
+                top: -8px;
+                left: 0;
+            }
+
+            .confetti-heart::after {
+                left: -8px;
+                top: 0;
+            }
+
+            .note {
+                margin: 0;
+                font-size: 14px;
+                color: #6b3d8a;
+            }
+
+            @media (max-width: 480px) {
+                h1 {
+                    font-size: 22px;
+                }
+
+                button {
+                    font-size: 16px;
+                    padding: 12px 22px;
+                }
+            }
+
+            @keyframes float-heart {
+                0% {
+                    transform: translateY(0) rotate(45deg) scale(0.8);
+                    opacity: 0.7;
+                }
+                100% {
+                    transform: translateY(-120vh) rotate(45deg) scale(1.2);
+                    opacity: 0;
+                }
+            }
+
+            @keyframes pop-in {
+                0% {
+                    transform: translateY(8px) scale(0.95);
+                    opacity: 0;
+                }
+                100% {
+                    transform: translateY(0) scale(1);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes pop-fade {
+                0% {
+                    transform: translateY(8px) scale(0.9);
+                    opacity: 0;
+                }
+                20% {
+                    transform: translateY(0) scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-14px) scale(1);
+                    opacity: 0;
+                }
+            }
+
+            @keyframes shake-title {
+                0% {
+                    transform: translateX(0);
+                }
+                25% {
+                    transform: translateX(-6px);
+                }
+                50% {
+                    transform: translateX(6px);
+                }
+                75% {
+                    transform: translateX(-4px);
+                }
+                100% {
+                    transform: translateX(0);
+                }
+            }
+
+            @keyframes yes-wiggle {
+                0% {
+                    transform: scale(1) rotate(0deg);
+                }
+                35% {
+                    transform: scale(1.02) rotate(-2deg);
+                }
+                70% {
+                    transform: scale(1.02) rotate(2deg);
+                }
+                100% {
+                    transform: scale(1) rotate(0deg);
+                }
+            }
+
+            @keyframes pulse-soft {
+                0% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.02);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
+
+            @keyframes burst {
+                0% {
+                    transform: translate(0, 0) rotate(45deg) scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(var(--x), var(--y)) rotate(45deg) scale(0.6);
+                    opacity: 0;
+                }
+            }
+
+            @keyframes heart-pulse {
+                0% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.15);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
+
+            @keyframes message-burst {
+                0% {
+                    transform: scale(1);
+                }
+                40% {
+                    transform: scale(1.04);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="hearts" aria-hidden="true">
+            <span style="left: 8%; animation-delay: 0s; animation-duration: 11s;"></span>
+            <span style="left: 18%; animation-delay: 2s; animation-duration: 12s;"></span>
+            <span style="left: 28%; animation-delay: 4s; animation-duration: 10s;"></span>
+            <span style="left: 38%; animation-delay: 1s; animation-duration: 13s;"></span>
+            <span style="left: 48%; animation-delay: 3s; animation-duration: 12s;"></span>
+            <span style="left: 58%; animation-delay: 5s; animation-duration: 11s;"></span>
+            <span style="left: 68%; animation-delay: 2s; animation-duration: 14s;"></span>
+            <span style="left: 78%; animation-delay: 6s; animation-duration: 10s;"></span>
+            <span style="left: 88%; animation-delay: 1s; animation-duration: 12s;"></span>
+            <span style="left: 5%; animation-delay: 7s; animation-duration: 15s;"></span>
+            <span style="left: 12%; animation-delay: 5s; animation-duration: 9s;"></span>
+            <span style="left: 24%; animation-delay: 8s; animation-duration: 13s;"></span>
+            <span style="left: 34%; animation-delay: 6s; animation-duration: 12s;"></span>
+            <span style="left: 44%; animation-delay: 9s; animation-duration: 14s;"></span>
+            <span style="left: 54%; animation-delay: 4s; animation-duration: 9s;"></span>
+            <span style="left: 64%; animation-delay: 7s; animation-duration: 12s;"></span>
+            <span style="left: 74%; animation-delay: 3s; animation-duration: 15s;"></span>
+            <span style="left: 84%; animation-delay: 8s; animation-duration: 11s;"></span>
+            <span style="left: 94%; animation-delay: 6s; animation-duration: 13s;"></span>
+        </div>
+        <div class="no-messages" id="noMessages" aria-hidden="true"></div>
+        <div class="celebrate" id="celebrate" aria-hidden="true"></div>
+        <div class="card" id="card">
+            <h1>Posso sequestrarti a San Valentino?</h1>
+            <div class="buttons" id="buttons">
+                <button id="btn-si" type="button">Si</button>
+                <button id="btn-no" type="button">No</button>
+            </div>
+            <p class="note">⚠️ Warning: l’opzione “No” potrebbe non collaborare.</p>
+            <div class="video-box" id="videoBox">
+                <video id="video" controls>
+                    <source src="Video/Video WhatsApp 2025-02-04 ore 23.29.56_2dbc3b27.mp4" type="video/mp4" />
+                </video>
+                <div class="video-actions">
+                    <button id="videoDoneBtn" type="button">Hai finito il video?<br>Clicca qui!!!</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="loveModal" aria-hidden="true">
+            <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalText">
+                <p id="modalText"></p>
+                <button id="modalOk" type="button">Ok</button>
+            </div>
+        </div>
+
+        <div class="modal" id="choiceModal" aria-hidden="true">
+            <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="choiceTitle">
+                <h3 id="choiceTitle">Scegli una opzione</h3>
+                <div class="choice-grid">
+                    <div class="choice-card">
+                        <img id="choiceImgA" src="Foto/maserati.jpg" alt="Opzione A" />
+                        <h3 id="choiceTitleA">Una bella Maserati Levante</h3>
+                        <p id="choiceDescA">Una macchina fantastica per una donna fantastica 😉</p>
+                        <button id="choiceBtnA" type="button">Scegli</button>
+                    </div>
+                    <div class="choice-card">
+                        <img id="choiceImgB" src="Foto/opzione-b.jpg" alt="Opzione B" />
+                        <h3 id="choiceTitleB">Opzione B</h3>
+                        <p id="choiceDescB">Descrizione B</p>
+                        <button id="choiceBtnB" type="button">Scegli</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="choiceMessageModal" aria-hidden="true">
+            <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="choiceMessageText">
+                <p id="choiceMessageText"></p>
+                <img id="choiceMessageImg" alt="Messaggio errore" />
+                <video id="choiceMessageVideo" controls></video>
+                <p class="choice-message-desc" id="choiceMessageDesc"></p>
+                <button id="choiceMessageOk" type="button">Riprova</button>
+            </div>
+        </div>
+
+        <div class="no-blocker" id="noBlocker" aria-hidden="true">
+            <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="noBlockerText">
+                <img id="noBlockerImg" src="Foto/bello.jpg" alt="Noi" />
+                <p id="noBlockerText">Ok, ora basta col No 😅</p>
+                <p class="desc" id="noBlockerDesc">Qui scrivi una descrizione piu lunga e personale sotto la foto.</p>
+                <button id="noBlockerOk" type="button">Ok</button>
+            </div>
+        </div>
+
+        <div class="final-fallback" id="finalFallback" aria-hidden="true">
+            <p>Porca Troia... Il cazzo di comando "ALT-F4" che avevo preparato si è rotto... Faccio cagare pure a programmare... Sappi che è colpa tua 🙄💔</p>
+        </div>
+
+           <div class="final-screen" id="finalScreen" aria-hidden="true">
+            <div>
+                <h2>Buon San Valentino Amore Mio!!</h2>
+                <div class="heart">💕</div>
+            </div>
+           </div>
+
+        <script>
+            const btnNo = document.getElementById("btn-no");
+            const btnSi = document.getElementById("btn-si");
+            const videoBox = document.getElementById("videoBox");
+            const video = document.getElementById("video");
+            const loveModal = document.getElementById("loveModal");
+            const modalText = document.getElementById("modalText");
+            const modalOk = document.getElementById("modalOk");
+            const modalContent = loveModal.querySelector(".modal-content");
+            const videoDoneBtn = document.getElementById("videoDoneBtn");
+            const choiceModal = document.getElementById("choiceModal");
+            const choiceMessageModal = document.getElementById("choiceMessageModal");
+            const choiceMessageText = document.getElementById("choiceMessageText");
+            const choiceMessageOk = document.getElementById("choiceMessageOk");
+            const choiceMessageImg = document.getElementById("choiceMessageImg");
+            const choiceMessageVideo = document.getElementById("choiceMessageVideo");
+            const choiceMessageDesc = document.getElementById("choiceMessageDesc");
+            const choiceBtnA = document.getElementById("choiceBtnA");
+            const choiceBtnB = document.getElementById("choiceBtnB");
+            const choiceTitleA = document.getElementById("choiceTitleA");
+            const choiceTitleB = document.getElementById("choiceTitleB");
+            const choiceDescA = document.getElementById("choiceDescA");
+            const choiceDescB = document.getElementById("choiceDescB");
+            const choiceImgA = document.getElementById("choiceImgA");
+            const choiceImgB = document.getElementById("choiceImgB");
+            const noBlocker = document.getElementById("noBlocker");
+            const noBlockerOk = document.getElementById("noBlockerOk");
+            const noBlockerImg = document.getElementById("noBlockerImg");
+            const noBlockerText = document.getElementById("noBlockerText");
+            const noBlockerDesc = document.getElementById("noBlockerDesc");
+            const finalFallback = document.getElementById("finalFallback");
+            const finalScreen = document.getElementById("finalScreen");
+            const noMessages = document.getElementById("noMessages");
+            const celebrate = document.getElementById("celebrate");
+            const title = document.querySelector("h1");
+            let yesScale = 1;
+            let triedNo = false;
+            let sequenceIndex = 0;
+            let noCount = 0;
+            let shouldClose = false;
+            const loveMessageQuick = "Wow, hai detto SI subito! Lo sapevo che non avresti resistito 💕";
+            const loveMessageTried = "Ahah finalmente ti sei decisa! Ma il destino era già stato scelto 😉";
+            const loveMessageExtra1 = "(Scrivi qui il secondo messaggio)";
+            const loveMessageExtra2 = "(Scrivi qui il terzo messaggio)";
+            let modalMessages = [];
+            let modalIndex = 0;
+            let wrongChoices = 0;
+               let correctChosen = false;
+            const noBlockerImages = {
+                50: "Foto/IMG_0097.jpeg",
+                75: "Foto/IMG_0135.jpeg",
+                90: "Foto/IMG_3223.jpeg",
+                95: "Foto/IMG_2100.jpeg",
+                100: "Foto/58119c6f-fa06-40b5-9f38-2ee69ab0e90a.jpeg"
+            };
+            const correctChoice = "B";
+            const choiceMessageCorrect = "Ottima scelta!!!<br>Ora vedi di organizzarti bene con gli esami, che appena sei libera si va in montagnaaa!!<br>(Non voglio finire come questo codesto personaggio di tonalità scura)";
+            const choiceMessageWrong1 = "Amore...<br>oltre a essere povero, ti sblocco un ricordo ahahah";
+            const choiceMessageCorrectImg = "Foto/IMG_4744.jpeg";
+            const choiceMessageWrong2 = "Amore sono poveroooo<br>Se proprio vuoi la macchina valla a chiedere a qualcun altro 😒<br>Ah, ora ti chiudo la pagina per dispetto";
+            const choiceMessageWrong1Desc = "Quindi forse è meglio scegliere la seconda opzione 😉";
+            const choiceMessageWrong2Desc = "La prossima volta scegli l'opzione giusta, ok? 🙄";
+            const choiceMessageWrong1Img = "";
+            const choiceMessageWrong2Img = "Foto/IMG_0643.jpeg";
+            const choiceMessageWrong1Video = "Video/WhatsApp Video 2026-02-10 at 17.23.05.mp4";
+            const choiceMessageWrong2Video = "";
+            const choiceData = {
+                A: {
+                    title: "Una bella Maserati Levante",
+                    desc: "Una macchina fantastica per una donna fantastica 😉",
+                    img: "Foto/maserati.jpg"
+                },
+                B: {
+                    title: "Una fantastica passeggiata in montagna insieme ☺️",
+                    desc: "Sì, nella foto c’è pure il papi, ma senza il nostro chauffeur privato e la sua limousine non sarebbe la stessa cosa 😌",
+                    img: "Foto/IMG_3228.jpeg"
+                }
+            };
+            const sequences = [
+                {
+                    yes: "Sì 🙂",
+                    title: "Posso rubarti a San Valentino?",
+                    no: "Ehi… non così in fretta 😌"
+                },
+                {
+                    yes: "Dai…",
+                    title: "Stai davvero pensando al No?",
+                    no: "Forse volevi dire “Sì” 😉"
+                },
+                {
+                    yes: "Perfavore 🥺",
+                    title: "Non ti credo 😌",
+                    no: "Oggi il “No” è timido"
+                },
+                {
+                    yes: "Dai cliccami 👀",
+                    title: "Non è così difficile…",
+                    no: "Quasi… ma non proprio!"
+                },
+                {
+                    yes: "Cliccaaaaaami 😘",
+                    title: "Sai che vuoi dire sì",
+                    no: "Riprova 👀"
+                },
+                {
+                    yes: "Oh, dai… 🥺",
+                    title: "Il No non funziona oggi",
+                    no: "Lo so che lo sai 💕"
+                },
+                {
+                    yes: "Sai che è sì",
+                    title: "Non scappare",
+                    no: "Non mi prendi mai!"
+                },
+                {
+                    yes: "Cliccami 👀",
+                    title: "Ultima occasione 😏",
+                    no: "Solo SI oggi!"
+                },
+                {
+                    yes: "Non scappare",
+                    title: "Daiii",
+                    no: "Arrenditi al SI"
+                },
+                {
+                    yes: "Sto aspettando…",
+                    title: "Dai… lo volevi",
+                    no: "Il “No” oggi non vale"
+                }
+            ];
+
+            const shuffle = (items) => {
+                for (let i = items.length - 1; i > 0; i -= 1) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [items[i], items[j]] = [items[j], items[i]];
+                }
+                return items;
+            };
+
+            shuffle(sequences);
+
+            const spawnHeartBurst = (centerX, centerY) => {
+                for (let i = 0; i < 18; i += 1) {
+                    const heart = document.createElement("span");
+                    heart.className = "confetti-heart";
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 120 + Math.random() * 140;
+                    const x = Math.cos(angle) * distance;
+                    const y = Math.sin(angle) * distance;
+                    heart.style.left = `${centerX}px`;
+                    heart.style.top = `${centerY}px`;
+                    heart.style.setProperty("--x", `${x}px`);
+                    heart.style.setProperty("--y", `${y}px`);
+                    celebrate.appendChild(heart);
+                    setTimeout(() => heart.remove(), 1900);
+                }
+            };
+
+            const openChoiceModal = () => {
+                choiceTitleA.textContent = choiceData.A.title;
+                choiceDescA.textContent = choiceData.A.desc;
+                choiceImgA.src = choiceData.A.img;
+                choiceTitleB.textContent = choiceData.B.title;
+                choiceDescB.textContent = choiceData.B.desc;
+                choiceImgB.src = choiceData.B.img;
+                choiceModal.classList.add("open");
+                choiceModal.setAttribute("aria-hidden", "false");
+            };
+
+            const closeChoiceModal = () => {
+                choiceModal.classList.remove("open");
+                choiceModal.setAttribute("aria-hidden", "true");
+            };
+
+            const openChoiceMessage = (text, buttonLabel = "Riprova", desc = "", videoSrc = "", imgSrc = "") => {
+                choiceMessageText.innerHTML = text;
+                choiceMessageOk.textContent = buttonLabel;
+                if (choiceMessageDesc) {
+                    choiceMessageDesc.innerHTML = desc;
+                    choiceMessageDesc.style.display = desc ? "block" : "none";
+                }
+                if (choiceMessageImg) {
+                    if (imgSrc) {
+                        choiceMessageImg.src = imgSrc;
+                        choiceMessageImg.style.display = "block";
+                    } else {
+                        choiceMessageImg.removeAttribute("src");
+                        choiceMessageImg.style.display = "none";
+                    }
+                }
+                if (choiceMessageVideo) {
+                    if (videoSrc) {
+                        choiceMessageVideo.src = videoSrc;
+                        choiceMessageVideo.style.display = "block";
+                    } else {
+                        choiceMessageVideo.pause();
+                        choiceMessageVideo.removeAttribute("src");
+                        choiceMessageVideo.load();
+                        choiceMessageVideo.style.display = "none";
+                    }
+                }
+                choiceMessageModal.classList.add("open");
+                choiceMessageModal.setAttribute("aria-hidden", "false");
+            };
+
+            const closeChoiceMessage = () => {
+                choiceMessageModal.classList.remove("open");
+                choiceMessageModal.setAttribute("aria-hidden", "true");
+            };
+
+            const moveNoButton = () => {
+                triedNo = true;
+                noCount += 1;
+                if (noCount >= 100) {
+                    shouldClose = true;
+                    noBlockerText.innerHTML = "Ah… allora il mio cuore e la mia pazienza non contano nulla... 😢<br>E pensare che ci ho messo tanto a preparare tutto questo 😔<br>Allora ciao, spero ti diverta con qualcun altro... 💔";
+                    if (noBlockerImg) {
+                        noBlockerImg.src = noBlockerImages[100];
+                        noBlockerImg.style.display = "block";
+                    }
+                    if (noBlockerDesc) {
+                        noBlockerDesc.textContent = "";
+                        noBlockerDesc.style.display = "none";
+                    }
+                    noBlocker.classList.add("open");
+                    noBlocker.setAttribute("aria-hidden", "false");
+                    return;
+                }
+                if (noCount === 95) {
+                    shouldClose = false;
+                    noBlockerText.textContent = "Amore… stai esagerando 😑";
+                    noBlockerDesc.textContent = "Adesso clicca sto cazzo di pulsante gigante rosa.\nNon farmi arrivare a 100 clic sul No, ti prego 😭";
+                    noBlockerDesc.style.display = "block";
+                    if (noBlockerImg) {
+                        noBlockerImg.src = noBlockerImages[95];
+                        noBlockerImg.style.display = "block";
+                    }
+                    noBlocker.classList.add("open");
+                    noBlocker.setAttribute("aria-hidden", "false");
+                    return;
+                }
+                if (noCount === 90) {
+                    shouldClose = false;
+                    noBlockerText.textContent = "Così però fa un po’ male 😢";
+                    noBlockerDesc.textContent = "È il 90ª No... Non sono uno scherzo 😒\nSe non mi volevi, potevi anche dirmelo prima…\nio ci sto mettendo il cuore, eh! 💔";
+                    noBlockerDesc.style.display = "block";
+                    if (noBlockerImg) {
+                        noBlockerImg.src = noBlockerImages[90];
+                        noBlockerImg.style.display = "block";
+                    }
+                    noBlocker.classList.add("open");
+                    noBlocker.setAttribute("aria-hidden", "false");
+                    return;
+                }
+                if (noCount === 75) {
+                    shouldClose = false;
+                    noBlockerText.textContent = "Ok, fermiamoci un attimo 😅";
+                    noBlockerDesc.textContent = "È il 75ª No.\nA questo punto o ti diverte vedermi soffrire\noppure il pulsante Sì ti mette soggezione 😂";
+                    noBlockerDesc.style.display = "block";
+                    if (noBlockerImg) {
+                        noBlockerImg.src = noBlockerImages[75];
+                        noBlockerImg.style.display = "block";
+                    }
+                    noBlocker.classList.add("open");
+                    noBlocker.setAttribute("aria-hidden", "false");
+                    if (noBlockerOk) {
+                        noBlockerOk.style.display = "inline-flex";
+                    }
+                    return;
+                } 
+                if (noCount === 50) {
+                    shouldClose = false;
+                    noBlockerText.textContent = "Amore… è la 50ª volta che clicchi No 😅";
+                    noBlockerDesc.textContent = "Ti stai impegnando davvero tantissimo 😅\nOra però fai la cosa semplice: clicca Sì";
+                    noBlockerDesc.style.display = "block";
+                    if (noBlockerImg) {
+                        noBlockerImg.src = noBlockerImages[50];
+                        noBlockerImg.style.display = "block";
+                    }
+                    noBlocker.classList.add("open");
+                    noBlocker.setAttribute("aria-hidden", "false");
+                    return;
+                }
+                const padding = 16;
+                const maxX = Math.max(padding, window.innerWidth - btnNo.offsetWidth - padding);
+                const maxY = Math.max(padding, window.innerHeight - btnNo.offsetHeight - padding);
+                const x = Math.max(padding, Math.random() * maxX);
+                const y = Math.max(padding, Math.random() * maxY);
+
+                btnNo.classList.add("no-fleeing");
+                btnNo.style.left = `${x}px`;
+                btnNo.style.top = `${y}px`;
+
+                const sequence = sequences[sequenceIndex % sequences.length];
+                sequenceIndex += 1;
+
+                yesScale += 0.2;
+                btnSi.style.transform = `scale(${yesScale})`;
+                btnSi.style.background = "var(--pink-dark)";
+                btnSi.textContent = sequence.yes;
+                btnSi.classList.add("wiggle");
+                setTimeout(() => btnSi.classList.remove("wiggle"), 320);
+
+                if (title) {
+                    title.classList.add("shake");
+                    title.textContent = sequence.title;
+                    setTimeout(() => title.classList.remove("shake"), 360);
+                }
+
+                const message = document.createElement("div");
+                message.className = "no-message";
+                message.textContent = sequence.no;
+                const msgX = Math.max(12, Math.random() * (window.innerWidth - 140));
+                const msgY = Math.max(12, Math.random() * (window.innerHeight - 80));
+                message.style.left = `${msgX}px`;
+                message.style.top = `${msgY}px`;
+                noMessages.appendChild(message);
+                setTimeout(() => {
+                    message.remove();
+                }, 2700);
+            };
+
+            btnNo.addEventListener("mouseenter", moveNoButton);
+            btnNo.addEventListener("focus", moveNoButton);
+            btnNo.addEventListener("touchstart", (event) => {
+                event.preventDefault();
+                moveNoButton();
+            }, { passive: false });
+            btnNo.addEventListener("click", moveNoButton);
+
+
+            btnSi.addEventListener("click", () => {
+                modalMessages = [
+                    triedNo ? loveMessageTried : loveMessageQuick,
+                    loveMessageExtra1,
+                    loveMessageExtra2
+                ];
+                modalIndex = 0;
+                modalText.textContent = modalMessages[modalIndex];
+                loveModal.classList.add("open");
+                loveModal.setAttribute("aria-hidden", "false");
+            });
+
+            modalOk.addEventListener("click", () => {
+                if (modalIndex < modalMessages.length - 1) {
+                    const rect = modalContent.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    spawnHeartBurst(centerX, centerY);
+                    modalContent.classList.add("burst");
+                    setTimeout(() => modalContent.classList.remove("burst"), 360);
+                    modalIndex += 1;
+                    setTimeout(() => {
+                        modalText.textContent = modalMessages[modalIndex];
+                    }, 360);
+                    return;
+                }
+                const rect = modalContent.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                spawnHeartBurst(centerX, centerY);
+                modalContent.classList.add("burst");
+                setTimeout(() => modalContent.classList.remove("burst"), 360);
+                setTimeout(() => {
+                    loveModal.classList.remove("open");
+                    loveModal.setAttribute("aria-hidden", "true");
+                    videoBox.classList.add("active");
+                    document.body.classList.add("show-video");
+                }, 360);
+            });
+
+            if (video) {
+                video.addEventListener("ended", () => {
+                    videoDoneBtn.style.display = "inline-flex";
+                });
+            }
+
+            videoDoneBtn.addEventListener("click", () => {
+                openChoiceModal();
+            });
+
+            const handleChoice = (choice) => {
+                closeChoiceModal();
+                if (choice === correctChoice) {
+                       correctChosen = true;
+                                        openChoiceMessage(choiceMessageCorrect, "Ok", "", "", choiceMessageCorrectImg);
+                    return;
+                }
+                wrongChoices += 1;
+                if (wrongChoices === 1) {
+                    openChoiceMessage(choiceMessageWrong1, "Riprova", choiceMessageWrong1Desc, choiceMessageWrong1Video, choiceMessageWrong1Img);
+                } else {
+                    openChoiceMessage(choiceMessageWrong2, "Si, mi sono offeso", choiceMessageWrong2Desc, choiceMessageWrong2Video, choiceMessageWrong2Img);
+                }
+            };
+
+            choiceBtnA.addEventListener("click", () => handleChoice("A"));
+            choiceBtnB.addEventListener("click", () => handleChoice("B"));
+
+            choiceMessageOk.addEventListener("click", () => {
+                closeChoiceMessage();
+                if (wrongChoices >= 2) {
+                    window.close();
+                    setTimeout(() => {
+                        if (finalFallback) {
+                            finalFallback.classList.add("open");
+                            finalFallback.setAttribute("aria-hidden", "false");
+                        }
+                    }, 200);
+                    return;
+                }
+                   if (correctChosen) {
+                    document.body.classList.add("final-state");
+                       finalScreen.classList.add("open");
+                       finalScreen.setAttribute("aria-hidden", "false");
+                       return;
+                   }
+                if (wrongChoices === 1) {
+                    openChoiceModal();
+                }
+            });
+
+            noBlockerOk.addEventListener("click", () => {
+                noBlocker.classList.remove("open");
+                noBlocker.setAttribute("aria-hidden", "true");
+                if (shouldClose) {
+                    window.close();
+                    setTimeout(() => {
+                        if (finalFallback) {
+                            finalFallback.classList.add("open");
+                            finalFallback.setAttribute("aria-hidden", "false");
+                        }
+                    }, 200);
+                }
+            });
+        </script>
+    </body>
+</html>
