@@ -336,8 +336,9 @@
 
             .choice-card img {
                 width: 100%;
-                height: 160px;
-                object-fit: cover;
+                height: 180px;
+                object-fit: contain;
+                background: #f5e9ff;
                 border-radius: 12px;
                 margin-bottom: 8px;
             }
@@ -579,7 +580,7 @@
         <div class="no-messages" id="noMessages" aria-hidden="true"></div>
         <div class="celebrate" id="celebrate" aria-hidden="true"></div>
         <div class="card" id="card">
-            <h1>Posso rubarti a San Valentino?</h1>
+            <h1>Posso sequestrarti a San Valentino?</h1>
             <div class="buttons" id="buttons">
                 <button id="btn-si" type="button">Si</button>
                 <button id="btn-no" type="button">No</button>
@@ -607,9 +608,9 @@
                 <h3 id="choiceTitle">Scegli una opzione</h3>
                 <div class="choice-grid">
                     <div class="choice-card">
-                        <img id="choiceImgA" src="Foto/opzione-a.jpg" alt="Opzione A" />
-                        <h3 id="choiceTitleA">Opzione A</h3>
-                        <p id="choiceDescA">Descrizione A</p>
+                        <img id="choiceImgA" src="Foto/maserati.jpg" alt="Opzione A" />
+                        <h3 id="choiceTitleA">Una bella Maserati Levante</h3>
+                        <p id="choiceDescA">Una macchina fantastica per una donna fantastica 😉</p>
                         <button id="choiceBtnA" type="button">Scegli</button>
                     </div>
                     <div class="choice-card">
@@ -694,20 +695,27 @@
             let modalIndex = 0;
             let wrongChoices = 0;
                let correctChosen = false;
+            const noBlockerImages = {
+                50: "Foto/IMG_0097.jpeg",
+                75: "Foto/IMG_0135.jpeg",
+                90: "Foto/IMG_3223.jpeg",
+                95: "Foto/IMG_2100.jpeg",
+                100: "Foto/58119c6f-fa06-40b5-9f38-2ee69ab0e90a.jpeg"
+            };
             const correctChoice = "B";
             const choiceMessageCorrect = "(Scrivi qui il messaggio per la scelta corretta)";
             const choiceMessageWrong1 = "(Scrivi qui il messaggio per il primo errore)";
             const choiceMessageWrong2 = "(Scrivi qui il messaggio per il secondo errore)";
             const choiceData = {
                 A: {
-                    title: "Opzione A",
-                    desc: "Descrizione A",
-                    img: "Foto/opzione-a.jpg"
+                    title: "Una bella Maserati Levante",
+                    desc: "Una macchina fantastica per una donna fantastica 😉",
+                    img: "Foto/maserati.jpg"
                 },
                 B: {
-                    title: "Opzione B",
-                    desc: "Descrizione B",
-                    img: "Foto/opzione-b.jpg"
+                    title: "Una fantastica passeggiata in montagna insieme ☺️",
+                    desc: "Sì, nella foto c’è pure il papi, ma senza il nostro chauffeur privato e la sua limousine non sarebbe la stessa cosa 😌",
+                    img: "Foto/IMG_3228.jpeg"
                 }
             };
             const sequences = [
@@ -806,8 +814,9 @@
                 choiceModal.setAttribute("aria-hidden", "true");
             };
 
-            const openChoiceMessage = (text) => {
+            const openChoiceMessage = (text, buttonLabel = "Riprova") => {
                 choiceMessageText.textContent = text;
+                choiceMessageOk.textContent = buttonLabel;
                 choiceMessageModal.classList.add("open");
                 choiceMessageModal.setAttribute("aria-hidden", "false");
             };
@@ -824,7 +833,8 @@
                     shouldClose = true;
                     noBlockerText.innerHTML = "Ah… allora il mio cuore e la mia pazienza non contano nulla... 😢<br>E pensare che ci ho messo tanto a preparare tutto questo 😔<br>Allora ciao, spero ti diverta con qualcun altro... 💔";
                     if (noBlockerImg) {
-                        noBlockerImg.style.display = "none";
+                        noBlockerImg.src = noBlockerImages[100];
+                        noBlockerImg.style.display = "block";
                     }
                     if (noBlockerDesc) {
                         noBlockerDesc.textContent = "";
@@ -840,6 +850,7 @@
                     noBlockerDesc.textContent = "Adesso clicca sto cazzo di pulsante gigante rosa.\nNon farmi arrivare a 100 clic sul No, ti prego 😭";
                     noBlockerDesc.style.display = "block";
                     if (noBlockerImg) {
+                        noBlockerImg.src = noBlockerImages[95];
                         noBlockerImg.style.display = "block";
                     }
                     noBlocker.classList.add("open");
@@ -852,6 +863,7 @@
                     noBlockerDesc.textContent = "È il 90ª No... Non sono uno scherzo 😒\nSe non mi volevi, potevi anche dirmelo prima…\nio ci sto mettendo il cuore, eh! 💔";
                     noBlockerDesc.style.display = "block";
                     if (noBlockerImg) {
+                        noBlockerImg.src = noBlockerImages[90];
                         noBlockerImg.style.display = "block";
                     }
                     noBlocker.classList.add("open");
@@ -864,6 +876,7 @@
                     noBlockerDesc.textContent = "È il 75ª No.\nA questo punto o ti diverte vedermi soffrire\noppure il pulsante Sì ti mette soggezione 😂";
                     noBlockerDesc.style.display = "block";
                     if (noBlockerImg) {
+                        noBlockerImg.src = noBlockerImages[75];
                         noBlockerImg.style.display = "block";
                     }
                     noBlocker.classList.add("open");
@@ -879,6 +892,7 @@
                     noBlockerDesc.textContent = "Ti stai impegnando davvero tantissimo 😅\nOra però fai la cosa semplice: clicca Sì";
                     noBlockerDesc.style.display = "block";
                     if (noBlockerImg) {
+                        noBlockerImg.src = noBlockerImages[50];
                         noBlockerImg.style.display = "block";
                     }
                     noBlocker.classList.add("open");
@@ -987,14 +1001,14 @@
                 closeChoiceModal();
                 if (choice === correctChoice) {
                        correctChosen = true;
-                    openChoiceMessage(choiceMessageCorrect);
+                    openChoiceMessage(choiceMessageCorrect, "Ok");
                     return;
                 }
                 wrongChoices += 1;
                 if (wrongChoices === 1) {
-                    openChoiceMessage(choiceMessageWrong1);
+                    openChoiceMessage(choiceMessageWrong1, "Riprova");
                 } else {
-                    openChoiceMessage(choiceMessageWrong2);
+                    openChoiceMessage(choiceMessageWrong2, "Sei proprio simpatica");
                 }
             };
 
