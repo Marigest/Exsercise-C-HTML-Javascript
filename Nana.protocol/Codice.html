@@ -319,6 +319,26 @@
                 word-break: break-word;
             }
 
+            #loveMediaImg {
+                width: 100%;
+                max-height: 40vh;
+                object-fit: contain;
+                border-radius: 14px;
+                border: 2px solid #f3d9ff;
+                margin: 0 0 12px;
+                display: none;
+                background: #f5e9ff;
+            }
+
+            #loveMediaVideo {
+                width: 100%;
+                max-height: 45vh;
+                border-radius: 14px;
+                border: 2px solid #f3d9ff;
+                margin: 0 0 12px;
+                display: none;
+            }
+
             #choiceMessageImg {
                 width: 100%;
                 max-height: 40vh;
@@ -620,7 +640,7 @@
             <p class="note">⚠️ Warning: l’opzione “No” potrebbe non collaborare.</p>
             <div class="video-box" id="videoBox">
                 <video id="video" controls>
-                    <source src="Video/Video WhatsApp 2025-02-04 ore 23.29.56_2dbc3b27.mp4" type="video/mp4" />
+                    <source src="Video/IMG_3243.mp4" type="video/mp4" />
                 </video>
                 <div class="video-actions">
                     <button id="videoDoneBtn" type="button">Hai finito il video?<br>Clicca qui!!!</button>
@@ -631,6 +651,8 @@
         <div class="modal" id="loveModal" aria-hidden="true">
             <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalText">
                 <p id="modalText"></p>
+                <img id="loveMediaImg" alt="Ricordo" />
+                <video id="loveMediaVideo" controls></video>
                 <button id="modalOk" type="button">Ok</button>
             </div>
         </div>
@@ -694,6 +716,8 @@
             const modalText = document.getElementById("modalText");
             const modalOk = document.getElementById("modalOk");
             const modalContent = loveModal.querySelector(".modal-content");
+            const loveMediaImg = document.getElementById("loveMediaImg");
+            const loveMediaVideo = document.getElementById("loveMediaVideo");
             const videoDoneBtn = document.getElementById("videoDoneBtn");
             const choiceModal = document.getElementById("choiceModal");
             const choiceMessageModal = document.getElementById("choiceMessageModal");
@@ -729,10 +753,16 @@
             const loveMessageTried = "Ahah finalmente ti sei decisa! Ma il destino era già stato scelto 😉";
             const loveMessageExtra1 = "(Scrivi qui il secondo messaggio)";
             const loveMessageExtra2 = "(Scrivi qui il terzo messaggio)";
+            const loveMessageExtra1Img = "Foto/IMG_0153.jpeg";
+            const loveMessageExtra2Img = "Foto/IMG_3701.jpeg";
+            const loveMediaFirstYesImg = "";
+            const loveMediaFirstYesVideo = "Video/IMG_5103.mp4";
+            const loveMediaAfterNoImg = "Foto/IMG_4708.jpeg";
+            const loveMediaAfterNoVideo = "";
             let modalMessages = [];
             let modalIndex = 0;
             let wrongChoices = 0;
-               let correctChosen = false;
+            let correctChosen = false;
             const noBlockerImages = {
                 50: "Foto/IMG_0097.jpeg",
                 75: "Foto/IMG_0135.jpeg",
@@ -895,6 +925,48 @@
                 choiceMessageModal.setAttribute("aria-hidden", "true");
             };
 
+            const updateLoveMedia = (imgSrc, videoSrc) => {
+                if (loveMediaImg) {
+                    if (imgSrc) {
+                        loveMediaImg.src = imgSrc;
+                        loveMediaImg.style.display = "block";
+                    } else {
+                        loveMediaImg.removeAttribute("src");
+                        loveMediaImg.style.display = "none";
+                    }
+                }
+                if (loveMediaVideo) {
+                    if (videoSrc) {
+                        loveMediaVideo.src = videoSrc;
+                        loveMediaVideo.style.display = "block";
+                    } else {
+                        loveMediaVideo.pause();
+                        loveMediaVideo.removeAttribute("src");
+                        loveMediaVideo.load();
+                        loveMediaVideo.style.display = "none";
+                    }
+                }
+            };
+
+            const getBaseLoveMedia = () => {
+                if (!triedNo) {
+                    return {
+                        img: loveMediaFirstYesImg,
+                        video: loveMediaFirstYesVideo
+                    };
+                }
+                if (noCount > 1) {
+                    return {
+                        img: loveMediaAfterNoImg,
+                        video: loveMediaAfterNoVideo
+                    };
+                }
+                return {
+                    img: "",
+                    video: ""
+                };
+            };
+
             const moveNoButton = () => {
                 triedNo = true;
                 noCount += 1;
@@ -1017,6 +1089,7 @@
 
 
             btnSi.addEventListener("click", () => {
+                const baseMedia = getBaseLoveMedia();
                 modalMessages = [
                     triedNo ? loveMessageTried : loveMessageQuick,
                     loveMessageExtra1,
@@ -1024,12 +1097,14 @@
                 ];
                 modalIndex = 0;
                 modalText.textContent = modalMessages[modalIndex];
+                updateLoveMedia(baseMedia.img, baseMedia.video);
                 loveModal.classList.add("open");
                 loveModal.setAttribute("aria-hidden", "false");
             });
 
             modalOk.addEventListener("click", () => {
                 if (modalIndex < modalMessages.length - 1) {
+                    const baseMedia = getBaseLoveMedia();
                     const rect = modalContent.getBoundingClientRect();
                     const centerX = rect.left + rect.width / 2;
                     const centerY = rect.top + rect.height / 2;
@@ -1039,6 +1114,13 @@
                     modalIndex += 1;
                     setTimeout(() => {
                         modalText.textContent = modalMessages[modalIndex];
+                        if (modalIndex === 1) {
+                            updateLoveMedia(loveMessageExtra1Img, "");
+                        } else if (modalIndex === 2) {
+                            updateLoveMedia(loveMessageExtra2Img, "");
+                        } else {
+                            updateLoveMedia(baseMedia.img, baseMedia.video);
+                        }
                     }, 360);
                     return;
                 }
