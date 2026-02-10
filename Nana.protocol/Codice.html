@@ -307,11 +307,43 @@
                 border: 3px solid #f5e9ff;
             }
 
+            #choiceModal .modal-content {
+                max-width: 720px;
+                padding: 28px;
+            }
+
             .modal-content p {
                 margin: 0 0 18px;
                 font-size: 18px;
                 color: #5a2a82;
                 word-break: break-word;
+            }
+
+            #choiceMessageImg {
+                width: 100%;
+                max-height: 40vh;
+                object-fit: contain;
+                border-radius: 14px;
+                border: 2px solid #f3d9ff;
+                margin: 0 0 12px;
+                display: none;
+                background: #f5e9ff;
+            }
+
+            #choiceMessageVideo {
+                width: 100%;
+                max-height: 45vh;
+                border-radius: 14px;
+                border: 2px solid #f3d9ff;
+                margin: 0 0 12px;
+                display: none;
+            }
+
+            .choice-message-desc {
+                font-size: 15px;
+                color: #6b3d8a;
+                margin: 0 0 16px;
+                display: none;
             }
 
             .modal-content button {
@@ -329,14 +361,14 @@
             .choice-card {
                 border: 2px solid #f5e9ff;
                 border-radius: 16px;
-                padding: 12px;
+                padding: 16px;
                 background: #fff;
                 text-align: center;
             }
 
             .choice-card img {
                 width: 100%;
-                height: 180px;
+                height: 210px;
                 object-fit: contain;
                 background: #f5e9ff;
                 border-radius: 12px;
@@ -345,13 +377,13 @@
 
             .choice-card h3 {
                 margin: 6px 0 6px;
-                font-size: 18px;
+                font-size: 20px;
                 color: #5a2a82;
             }
 
             .choice-card p {
                 margin: 0 0 10px;
-                font-size: 14px;
+                font-size: 15px;
                 color: #6b3d8a;
             }
 
@@ -626,6 +658,9 @@
         <div class="modal" id="choiceMessageModal" aria-hidden="true">
             <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="choiceMessageText">
                 <p id="choiceMessageText"></p>
+                <img id="choiceMessageImg" alt="Messaggio errore" />
+                <video id="choiceMessageVideo" controls></video>
+                <p class="choice-message-desc" id="choiceMessageDesc"></p>
                 <button id="choiceMessageOk" type="button">Riprova</button>
             </div>
         </div>
@@ -664,6 +699,9 @@
             const choiceMessageModal = document.getElementById("choiceMessageModal");
             const choiceMessageText = document.getElementById("choiceMessageText");
             const choiceMessageOk = document.getElementById("choiceMessageOk");
+            const choiceMessageImg = document.getElementById("choiceMessageImg");
+            const choiceMessageVideo = document.getElementById("choiceMessageVideo");
+            const choiceMessageDesc = document.getElementById("choiceMessageDesc");
             const choiceBtnA = document.getElementById("choiceBtnA");
             const choiceBtnB = document.getElementById("choiceBtnB");
             const choiceTitleA = document.getElementById("choiceTitleA");
@@ -703,9 +741,15 @@
                 100: "Foto/58119c6f-fa06-40b5-9f38-2ee69ab0e90a.jpeg"
             };
             const correctChoice = "B";
-            const choiceMessageCorrect = "(Scrivi qui il messaggio per la scelta corretta)";
-            const choiceMessageWrong1 = "(Scrivi qui il messaggio per il primo errore)";
-            const choiceMessageWrong2 = "(Scrivi qui il messaggio per il secondo errore)";
+            const choiceMessageCorrect = "Ottima scelta!!!<br>Ora vedi di organizzarti bene con gli esami, che appena sei libera si va in montagnaaa!!";
+            const choiceMessageWrong1 = "Amore...<br>oltre a essere povero, ti sblocco un ricordo ahahah";
+            const choiceMessageWrong2 = "Amore sono poveroooo<br>Se proprio vuoi la macchina vai a chiederla a qualcun altro 😒<br>Ah, ora ti chiudo la pagina per dispetto";
+            const choiceMessageWrong1Desc = "Quindi forse è meglio scegliere la seconda opzione 😉";
+            const choiceMessageWrong2Desc = "La prossima volta scegli l'opzione giusta, ok? 🙄";
+            const choiceMessageWrong1Img = "";
+            const choiceMessageWrong2Img = "";
+            const choiceMessageWrong1Video = "Video/WhatsApp Video 2026-02-10 at 17.23.05.mp4";
+            const choiceMessageWrong2Video = "";
             const choiceData = {
                 A: {
                     title: "Una bella Maserati Levante",
@@ -814,9 +858,33 @@
                 choiceModal.setAttribute("aria-hidden", "true");
             };
 
-            const openChoiceMessage = (text, buttonLabel = "Riprova") => {
-                choiceMessageText.textContent = text;
+            const openChoiceMessage = (text, buttonLabel = "Riprova", desc = "", videoSrc = "", imgSrc = "") => {
+                choiceMessageText.innerHTML = text;
                 choiceMessageOk.textContent = buttonLabel;
+                if (choiceMessageDesc) {
+                    choiceMessageDesc.innerHTML = desc;
+                    choiceMessageDesc.style.display = desc ? "block" : "none";
+                }
+                if (choiceMessageImg) {
+                    if (imgSrc) {
+                        choiceMessageImg.src = imgSrc;
+                        choiceMessageImg.style.display = "block";
+                    } else {
+                        choiceMessageImg.removeAttribute("src");
+                        choiceMessageImg.style.display = "none";
+                    }
+                }
+                if (choiceMessageVideo) {
+                    if (videoSrc) {
+                        choiceMessageVideo.src = videoSrc;
+                        choiceMessageVideo.style.display = "block";
+                    } else {
+                        choiceMessageVideo.pause();
+                        choiceMessageVideo.removeAttribute("src");
+                        choiceMessageVideo.load();
+                        choiceMessageVideo.style.display = "none";
+                    }
+                }
                 choiceMessageModal.classList.add("open");
                 choiceMessageModal.setAttribute("aria-hidden", "false");
             };
@@ -1006,9 +1074,9 @@
                 }
                 wrongChoices += 1;
                 if (wrongChoices === 1) {
-                    openChoiceMessage(choiceMessageWrong1, "Riprova");
+                    openChoiceMessage(choiceMessageWrong1, "Riprova", choiceMessageWrong1Desc, choiceMessageWrong1Video, choiceMessageWrong1Img);
                 } else {
-                    openChoiceMessage(choiceMessageWrong2, "Sei proprio simpatica");
+                    openChoiceMessage(choiceMessageWrong2, "Si, mi sono offeso", choiceMessageWrong2Desc, choiceMessageWrong2Video, choiceMessageWrong2Img);
                 }
             };
 
@@ -1016,7 +1084,6 @@
             choiceBtnB.addEventListener("click", () => handleChoice("B"));
 
             choiceMessageOk.addEventListener("click", () => {
-                const wasWrong = wrongChoices > 0 && wrongChoices < 2 && choiceMessageText.textContent === choiceMessageWrong1;
                 closeChoiceMessage();
                 if (wrongChoices >= 2) {
                     window.close();
@@ -1032,8 +1099,9 @@
                     document.body.classList.add("final-state");
                        finalScreen.classList.add("open");
                        finalScreen.setAttribute("aria-hidden", "false");
+                       return;
                    }
-                if (wasWrong) {
+                if (wrongChoices === 1) {
                     openChoiceModal();
                 }
             });
