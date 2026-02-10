@@ -716,7 +716,7 @@
             const noBlockerText = document.getElementById("noBlockerText");
             const noBlockerDesc = document.getElementById("noBlockerDesc");
             const finalFallback = document.getElementById("finalFallback");
-               const finalScreen = document.getElementById("finalScreen");
+            const finalScreen = document.getElementById("finalScreen");
             const noMessages = document.getElementById("noMessages");
             const celebrate = document.getElementById("celebrate");
             const title = document.querySelector("h1");
@@ -741,13 +741,14 @@
                 100: "Foto/58119c6f-fa06-40b5-9f38-2ee69ab0e90a.jpeg"
             };
             const correctChoice = "B";
-            const choiceMessageCorrect = "Ottima scelta!!!<br>Ora vedi di organizzarti bene con gli esami, che appena sei libera si va in montagnaaa!!";
+            const choiceMessageCorrect = "Ottima scelta!!!<br>Ora vedi di organizzarti bene con gli esami, che appena sei libera si va in montagnaaa!!<br>(Non voglio finire come questo codesto personaggio di tonalità scura)";
             const choiceMessageWrong1 = "Amore...<br>oltre a essere povero, ti sblocco un ricordo ahahah";
-            const choiceMessageWrong2 = "Amore sono poveroooo<br>Se proprio vuoi la macchina vai a chiederla a qualcun altro 😒<br>Ah, ora ti chiudo la pagina per dispetto";
+            const choiceMessageCorrectImg = "Foto/IMG_4744.jpeg";
+            const choiceMessageWrong2 = "Amore sono poveroooo<br>Se proprio vuoi la macchina valla a chiedere a qualcun altro 😒<br>Ah, ora ti chiudo la pagina per dispetto";
             const choiceMessageWrong1Desc = "Quindi forse è meglio scegliere la seconda opzione 😉";
             const choiceMessageWrong2Desc = "La prossima volta scegli l'opzione giusta, ok? 🙄";
             const choiceMessageWrong1Img = "";
-            const choiceMessageWrong2Img = "";
+            const choiceMessageWrong2Img = "Foto/IMG_0643.jpeg";
             const choiceMessageWrong1Video = "Video/WhatsApp Video 2026-02-10 at 17.23.05.mp4";
             const choiceMessageWrong2Video = "";
             const choiceData = {
@@ -1069,7 +1070,7 @@
                 closeChoiceModal();
                 if (choice === correctChoice) {
                        correctChosen = true;
-                    openChoiceMessage(choiceMessageCorrect, "Ok");
+                                        openChoiceMessage(choiceMessageCorrect, "Ok", "", "", choiceMessageCorrectImg);
                     return;
                 }
                 wrongChoices += 1;
