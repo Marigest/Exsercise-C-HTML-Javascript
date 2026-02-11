@@ -650,9 +650,9 @@
 
         <div class="modal" id="loveModal" aria-hidden="true">
             <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalText">
-                <p id="modalText"></p>
                 <img id="loveMediaImg" alt="Ricordo" />
                 <video id="loveMediaVideo" controls></video>
+                <p id="modalText"></p>
                 <button id="modalOk" type="button">Ok</button>
             </div>
         </div>
@@ -679,9 +679,9 @@
 
         <div class="modal" id="choiceMessageModal" aria-hidden="true">
             <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="choiceMessageText">
-                <p id="choiceMessageText"></p>
-                <img id="choiceMessageImg" alt="Messaggio errore" />
+                <img id="choiceMessageImg" alt="Messaggio" />
                 <video id="choiceMessageVideo" controls></video>
+                <p id="choiceMessageText"></p>
                 <p class="choice-message-desc" id="choiceMessageDesc"></p>
                 <button id="choiceMessageOk" type="button">Riprova</button>
             </div>
@@ -751,8 +751,8 @@
             let shouldClose = false;
             const loveMessageQuick = "Wow, hai detto SI subito! Lo sapevo che non avresti resistito 💕";
             const loveMessageTried = "Ahah finalmente ti sei decisa! Ma il destino era già stato scelto 😉";
-            const loveMessageExtra1 = "(Scrivi qui il secondo messaggio)";
-            const loveMessageExtra2 = "(Scrivi qui il terzo messaggio)";
+            const loveMessageExtra1 = "Ora che hai detto di sì, non puoi più tornare indietro...<br>Quindi possiamo andare a fare le dive in giro per Busto e per il mondo, insiemeeee: che ne dici? 😘";
+            const loveMessageExtra2 = "Premessa importante: so che San Valentino, per te, è un giorno come un altro.<br>Premessa numero due: io non ascolto mai davvero queste cose.<br>Quindi ho deciso di fare comunque qualcosa per rendere la giornata un po’ più speciale, senza spendere un centesimo, ma sacrificando qualche neurone davanti al codice (circa 1200 righe, per la cronaca).<br>Ti amo tanto e spero che questa sorpresa ti strappi almeno un sorriso… o due ❤️";
             const loveMessageExtra1Img = "Foto/IMG_0153.jpeg";
             const loveMessageExtra2Img = "Foto/IMG_3701.jpeg";
             const loveMediaFirstYesImg = "";
@@ -769,6 +769,13 @@
                 90: "Foto/IMG_3223.jpeg",
                 95: "Foto/IMG_2100.jpeg",
                 100: "Foto/58119c6f-fa06-40b5-9f38-2ee69ab0e90a.jpeg"
+            };
+            const noBlockerButtons = {
+                50: "Va bene??",
+                75: "Ora faccio la brava 😇",
+                90: "Ok, la smetto",
+                95: "Prometto che non lo faccio più ",
+                100: "Mi hai deluso 💔"
             };
             const correctChoice = "B";
             const choiceMessageCorrect = "Ottima scelta!!!<br>Ora vedi di organizzarti bene con gli esami, che appena sei libera si va in montagnaaa!!<br>(Non voglio finire come questo codesto personaggio di tonalità scura)";
@@ -981,6 +988,9 @@
                         noBlockerDesc.textContent = "";
                         noBlockerDesc.style.display = "none";
                     }
+                    if (noBlockerOk) {
+                        noBlockerOk.textContent = noBlockerButtons[100];
+                    }
                     noBlocker.classList.add("open");
                     noBlocker.setAttribute("aria-hidden", "false");
                     return;
@@ -994,6 +1004,9 @@
                         noBlockerImg.src = noBlockerImages[95];
                         noBlockerImg.style.display = "block";
                     }
+                    if (noBlockerOk) {
+                        noBlockerOk.textContent = noBlockerButtons[95];
+                    }
                     noBlocker.classList.add("open");
                     noBlocker.setAttribute("aria-hidden", "false");
                     return;
@@ -1006,6 +1019,9 @@
                     if (noBlockerImg) {
                         noBlockerImg.src = noBlockerImages[90];
                         noBlockerImg.style.display = "block";
+                    }
+                    if (noBlockerOk) {
+                        noBlockerOk.textContent = noBlockerButtons[90];
                     }
                     noBlocker.classList.add("open");
                     noBlocker.setAttribute("aria-hidden", "false");
@@ -1024,6 +1040,7 @@
                     noBlocker.setAttribute("aria-hidden", "false");
                     if (noBlockerOk) {
                         noBlockerOk.style.display = "inline-flex";
+                        noBlockerOk.textContent = noBlockerButtons[75];
                     }
                     return;
                 } 
@@ -1035,6 +1052,9 @@
                     if (noBlockerImg) {
                         noBlockerImg.src = noBlockerImages[50];
                         noBlockerImg.style.display = "block";
+                    }
+                    if (noBlockerOk) {
+                        noBlockerOk.textContent = noBlockerButtons[50];
                     }
                     noBlocker.classList.add("open");
                     noBlocker.setAttribute("aria-hidden", "false");
@@ -1096,7 +1116,7 @@
                     loveMessageExtra2
                 ];
                 modalIndex = 0;
-                modalText.textContent = modalMessages[modalIndex];
+                modalText.innerHTML = modalMessages[modalIndex];
                 updateLoveMedia(baseMedia.img, baseMedia.video);
                 loveModal.classList.add("open");
                 loveModal.setAttribute("aria-hidden", "false");
@@ -1113,7 +1133,7 @@
                     setTimeout(() => modalContent.classList.remove("burst"), 360);
                     modalIndex += 1;
                     setTimeout(() => {
-                        modalText.textContent = modalMessages[modalIndex];
+                        modalText.innerHTML = modalMessages[modalIndex];
                         if (modalIndex === 1) {
                             updateLoveMedia(loveMessageExtra1Img, "");
                         } else if (modalIndex === 2) {
